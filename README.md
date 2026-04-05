@@ -1,40 +1,28 @@
 # Byngox
-> **Swarm Reasoning AI Engine** — by Sorabbyngo Labs · *Rhythm of Digital Life*
+> **8-Agent Swarm Reasoning Engine** — Sorabbyngo Labs
 
-## What is Byngox?
-Byngox is the multi-agent intelligence core of SORABBYNGO OS. A swarm of 12 specialized AI agents collaborate via the ACP protocol to process requests, reason across domains, and coordinate actions across the Sorabbyngo platform.
+The cognitive intelligence core of SORABBYNGO OS. Six health-specialized agents plus network and learning coordination, communicating via ACP over NATS JetStream.
+
+## Agents
+| Agent | Role |
+|---|---|
+| health_agent | Clinical decision support, triage |
+| drug_agent | Medication verification, counterfeit detection |
+| context_agent | Patient history, episodic memory |
+| network_agent | Byngonet coordination, distributed tasks |
+| learning_agent | Feedback loops, model improvement |
+| population_agent | Epidemiology, outbreak detection, heatmaps |
+
+## Intelligence Tiers
+- Tier 1: Phi-3 mini / Qwen 3B — always offline
+- Tier 2: LLaMA 3 8B / Mixtral — GPU/NPU
+- Tier 3: Claude API + PRIME LoRA adapters — cloud
 
 ## Stack
-| Component | Detail |
-|---|---|
-| **12 specialized agents** | Each agent owns a specific reasoning domain |
-| **ACP protocol** | Inter-agent communication and task delegation |
-| **Claude API** | Anthropic claude-sonnet-4 as reasoning backbone |
-| **Offline-capable** | Graceful degradation without connectivity |
+- Python 3.12 + FastAPI
+- NATS JetStream (ACP transport)
+- LanceDB (vector store, offline-first)
+- Neo4j (medical knowledge graph)
+- ONNX Runtime (local inference)
 
-## Status
-🔵 In development
-
-## Part of SORABBYNGO OS
-```
-┌─────────────────────────────────────────────────┐
-│              SORABBYNGO AI OS                   │
-├─────────────────────────────────────────────────┤
-│  Chameha        — AI personality and interface  │
-├─────────────────────────────────────────────────┤
-│  Novela         — AI health intelligence        │
-├─────────────────────────────────────────────────┤
-│  Byngox         — Swarm reasoning engine        │
-├─────────────────────────────────────────────────┤
-│  CML            — Cognitive mediation layer     │
-├─────────────────────────────────────────────────┤
-│  Byngonet       — Distributed mesh network      │
-├─────────────────────────────────────────────────┤
-│  SORABBYNGO OS  — Custom Linux 6.19.10 kernel   │
-└─────────────────────────────────────────────────┘
-```
-
-## About
-**Sorabbyngo Company** — Kisii, Kenya
-*Building Africa sovereign digital infrastructure — from the kernel up.*
-© 2026 Sorabbyngo Company. All rights reserved.
+**Sorabbyngo Company** — Kisii, Kenya | 2026
