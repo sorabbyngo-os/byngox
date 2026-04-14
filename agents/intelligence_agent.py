@@ -36,11 +36,14 @@ class IntelligenceAgent(BaseAgent):
                     continue
             except (ValueError, TypeError):
                 continue
+            insight_name = name
             insight = HealthInsight(patient_ref=patient_ref, insight_type="risk",
                                     severity=severity, description=description,
                                     confidence=confidence)
             self.logger.info(f"Insight [{severity}]: {patient_ref[:12]} — {name}")
-            self.publish(f"health.insights.{severity}", insight.to_dict())
+            d = insight.to_dict()
+            d["name"] = name
+            self.publish(f"health.insights.{severity}", d)
             if severity == "critical":
                 self.publish("sorabbyngo.byngox.risk", {
                     "source": "byngox.intelligence", "patient_ref": patient_ref,
