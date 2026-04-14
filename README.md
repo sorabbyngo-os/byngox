@@ -17,7 +17,7 @@ The cognitive intelligence core of SORABBYNGO OS. Six health-specialized agents 
 
 | Tier | Models | Runtime | Condition |
 |---|---|---|---|
-| Tier 1 | Phi-4 Mini, Gemma 3 2B, SmolLM2 | llama.cpp / Ollama | Always-on, no internet |
+| Tier 1 | Phi-4 Mini, Gemma 3 2B, SmolLM2 | Ollama | Always-on, no internet |
 | Tier 2 | Gemma 3 4B, Phi-4 INT8 | Ollama | GPU/NPU devices |
 | Tier 3 | Qwen 2.5 72B INT4, Mistral Small 3.1 | Ollama | Performance devices |
 | Tier 4 | DeepSeek-R1 70B, Mixtral 8x22B, LLaMA 3.1 70B | Byngox Prime vLLM | Self-hosted H100/A100 |
