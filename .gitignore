@@ -3,3 +3,7 @@ __pycache__/
 .env
 venv/
 lancedb_data/
+# Python
+__pycache__/
+*.pyc
+*.pyo
