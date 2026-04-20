@@ -20,7 +20,8 @@ class TwinAgent(BaseAgent):
             with open(TWIN_STORE) as f:
                 data = json.load(f)
                 for ref, state in data.items():
-                    self._twins[ref] = TwinState(**{k: v for k, v in state.items() if k in TwinState.__dataclass_fields__})
+                    known = set(TwinState.__dataclass_fields__.keys())
+                    self._twins[ref] = TwinState(**{k: v for k, v in state.items() if k in known})
             self.logger.info(f"Loaded {len(self._twins)} twins")
         except Exception:
             pass

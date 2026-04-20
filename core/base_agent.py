@@ -49,6 +49,7 @@ class BaseAgent(ABC):
                 time.sleep(3)
 
     def publish(self, subject: str, payload: dict):
+        payload = dict(payload)           # never mutate caller's dict
         payload["agent"]     = self.name
         payload["timestamp"] = time.time()
         msg  = json.dumps(payload)
@@ -83,23 +84,32 @@ class BaseAgent(ABC):
                 self._buf += chunk
                 self._buf  = self._process(self._buf)
             except Exception:
-                self._connect()
-                self._subscribe()
+                try:
+                    self._connect()
+                    self._subscribe()
+                except Exception:
+                    pass
 
     def _process(self, buf: str) -> str:
         while "\r\n" in buf:
             line, buf = buf.split("\r\n", 1)
             if line.startswith("MSG "):
                 parts = line.split()
-                if len(parts) >= 4:
-                    nbytes = int(parts[3])
-                    if len(buf) >= nbytes:
-                        payload = buf[:nbytes]
-                        buf     = buf[nbytes:].lstrip("\r\n")
-                        try:
-                            data    = json.loads(payload)
-                            subject = parts[1]
-                            self.on_message(subject, data)
-                        except json.JSONDecodeError:
-                            pass
+                # NATS MSG format: MSG <subject> <sid> [reply] <#bytes>
+                if len(parts) == 4:
+                    subject = parts[1]
+                    nbytes  = int(parts[3])
+                elif len(parts) == 5:
+                    subject = parts[1]
+                    nbytes  = int(parts[4])
+                else:
+                    continue
+                if len(buf) >= nbytes:
+                    payload = buf[:nbytes]
+                    buf     = buf[nbytes:].lstrip("\r\n")
+                    try:
+                        data = json.loads(payload)
+                        self.on_message(subject, data)
+                    except json.JSONDecodeError:
+                        pass
         return buf

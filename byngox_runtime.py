@@ -32,6 +32,11 @@ class ByngoxRuntime:
         log.info("All Byngox agents started.")
 
 if __name__ == "__main__":
-    nodeid = open("/proc/sorabbyngo/nodeid").read().strip()
+    try:
+        nodeid = open("/proc/sorabbyngo/nodeid").read().strip()
+    except FileNotFoundError:
+        import socket, hashlib
+        nodeid = hashlib.sha256(socket.gethostname().encode()).hexdigest()[:32]
+        log.warning("NodeID driver not found — using hostname-derived ID (dev mode)")
     runtime = ByngoxRuntime(nodeid=nodeid)
     asyncio.run(runtime.start())
