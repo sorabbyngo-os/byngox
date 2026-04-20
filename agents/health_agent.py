@@ -13,7 +13,9 @@ class HealthAgent(BaseAgent):
         log.info("HealthAgent ready — clinical decision support active")
         # TODO Phase 4: Subscribe to NATS HEALTH_QUERY
         # TODO Phase 4: Wire to local ONNX model for triage scoring
-        # TODO Phase 4: Route to Claude API (Tier 3) when connected
+        # TODO Phase 4: Route to Byngox Prime vLLM (DeepSeek-R1 70B) when cluster reachable
+        #              Endpoint: http://byngox-prime.internal:8000/v1/chat/completions
+        #              Falls back to local ONNX model when Prime is unreachable
 
     async def triage(self, symptoms: list, vitals: dict) -> dict:
         """Basic triage assessment. Returns risk score and recommendation."""

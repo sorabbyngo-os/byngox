@@ -1,4 +1,4 @@
-anthropic==0.34.2
+# anthropic SDK removed — inference via Byngox Prime vLLM (OpenAI-compatible REST)
 nats-py==2.6.0
 lancedb==0.6.0
 onnxruntime==1.18.0
