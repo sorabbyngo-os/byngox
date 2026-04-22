@@ -10,11 +10,11 @@ Starts ALL Byngox agents in a single process:
     LearningAgent    — feedback collection
     PopulationAgent  — epidemiology + outbreak detection
     NetworkAgent     — mesh peer tracking
+    TwinAgent        — digital twin state management (async)
 
   Sync pipeline agents (raw socket NATS via core/base_agent.py):
     IngestionAgent      — receives raw health events
     NormalizationAgent  — unit conversion + range tagging
-    TwinAgent           — digital twin state management
     IntelligenceAgent   — rule-based risk scoring
     RecommendationAgent — evidence-based recommendations
     CoordinationAgent   — action dispatch to doctor/patient
@@ -44,11 +44,11 @@ from agents.context_agent     import ContextAgent
 from agents.learning_agent    import LearningAgent
 from agents.population_agent  import PopulationAgent
 from agents.network_agent     import NetworkAgent
+from agents.twin_agent         import TwinAgent
 
 # ── Sync pipeline agents ──────────────────────────────────────────────────────
 from agents.ingestion_agent      import IngestionAgent
 from agents.normalization_agent  import NormalizationAgent
-from agents.twin_agent           import TwinAgent
 from agents.intelligence_agent   import IntelligenceAgent
 from agents.recommendation_agent import RecommendationAgent
 from agents.coordination_agent   import CoordinationAgent
@@ -71,7 +71,6 @@ def _start_sync_pipeline():
     agents = [
         IngestionAgent(),
         NormalizationAgent(),
-        TwinAgent(),
         IntelligenceAgent(),
         RecommendationAgent(),
         CoordinationAgent(),
@@ -101,9 +100,10 @@ async def _start_async_agents(nodeid: str):
         LearningAgent(nodeid),
         PopulationAgent(nodeid),
         NetworkAgent(nodeid),
+        TwinAgent(),
     ]
     log.info("Starting %d async agents...", len(agents))
-    await asyncio.gather(*[agent.run() for agent in agents])
+    await asyncio.gather(*[agent.start() for agent in agents])
 
 
 async def main():
