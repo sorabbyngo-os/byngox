@@ -1,5 +1,9 @@
+# Byngox — 12-agent health intelligence swarm
+# Async agents use nats-py; sync agents use raw socket NATS via core/base_agent.py
 nats-py==2.6.0
+httpx==0.27.0
 lancedb==0.6.0
 onnxruntime==1.18.0
 fastapi==0.111.0
 uvicorn==0.30.0
+# anthropic SDK removed — inference via Byngox Prime vLLM (OpenAI-compatible REST)
