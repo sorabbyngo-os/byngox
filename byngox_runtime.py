@@ -45,6 +45,7 @@ from agents.learning_agent    import LearningAgent
 from agents.population_agent  import PopulationAgent
 from agents.network_agent     import NetworkAgent
 from agents.twin_agent         import TwinAgent
+from agents.security_agent     import SecurityAgent
 
 # ── Sync pipeline agents ──────────────────────────────────────────────────────
 from agents.ingestion_agent      import IngestionAgent
@@ -101,6 +102,7 @@ async def _start_async_agents(nodeid: str):
         PopulationAgent(nodeid),
         NetworkAgent(nodeid),
         TwinAgent(),
+        SecurityAgent(nodeid),
     ]
     log.info("Starting %d async agents...", len(agents))
     await asyncio.gather(*[agent.start() for agent in agents])
