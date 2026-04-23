@@ -38,7 +38,7 @@ logging.basicConfig(
 log = logging.getLogger("byngox.runtime")
 
 # ── Async agents ──────────────────────────────────────────────────────────────
-from agents.health_agent      import HealthAgent
+from agents import health_agent
 from agents.drug_agent        import DrugAgent
 from agents.context_agent     import ContextAgent
 from agents.learning_agent    import LearningAgent
