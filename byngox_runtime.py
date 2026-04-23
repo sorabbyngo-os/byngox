@@ -95,7 +95,7 @@ async def _start_async_agents(nodeid: str):
     These use nats-py and are awaited together.
     """
     agents = [
-        HealthAgent(nodeid),
+        health_agent.run_agent(),
         DrugAgent(nodeid),
         ContextAgent(nodeid),
         LearningAgent(nodeid),
