@@ -72,6 +72,7 @@ def _start_sync_pipeline():
     agents = [
         IngestionAgent(),
         NormalizationAgent(),
+        TwinAgent(),
         IntelligenceAgent(),
         RecommendationAgent(),
         CoordinationAgent(),
