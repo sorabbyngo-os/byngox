@@ -95,17 +95,17 @@ async def _start_async_agents(nodeid: str):
     These use nats-py and are awaited together.
     """
     agents = [
-        health_agent.main(),
         DrugAgent(nodeid),
         ContextAgent(nodeid),
         LearningAgent(nodeid),
         PopulationAgent(nodeid),
         NetworkAgent(nodeid),
-        TwinAgent(),
-        SecurityAgent(nodeid),
     ]
     log.info("Starting %d async agents...", len(agents))
-    await asyncio.gather(*[agent.start() for agent in agents])
+    await asyncio.gather(
+        health_agent.main(),
+        *[agent.run() for agent in agents[1:]],
+    )
 
 
 async def main():
