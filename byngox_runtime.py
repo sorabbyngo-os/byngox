@@ -72,7 +72,6 @@ def _start_sync_pipeline():
     agents = [
         IngestionAgent(),
         NormalizationAgent(),
-        TwinAgent(),
         IntelligenceAgent(),
         RecommendationAgent(),
         CoordinationAgent(),
@@ -81,12 +80,12 @@ def _start_sync_pipeline():
     for agent in agents:
         t = threading.Thread(
             target=agent.start,
-            name=f"sync-{agent.name}",
+            name=f"sync-{getattr(agent, 'name', type(agent).__name__)}",
             daemon=True,
         )
         t.start()
         threads.append(t)
-        log.info("Sync agent started: %s", agent.name)
+        log.info("Sync agent started: %s", getattr(agent, "name", type(agent).__name__))
     return threads
 
 
@@ -105,6 +104,7 @@ async def _start_async_agents(nodeid: str):
     log.info("Starting %d async agents...", len(agents))
     await asyncio.gather(
         health_agent.main(),
+        TwinAgent().start(),
         *[agent.run() for agent in agents[1:]],
     )
 
