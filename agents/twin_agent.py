@@ -37,8 +37,8 @@ from schemas.health import TwinState
 log = logging.getLogger("byngox.twin_agent")
 
 # ── Config ────────────────────────────────────────────────────────────────────
-NATS_URL        = os.environ.get("NATS_URL",         "nats://localhost:4222")
-NOVELA_API_URL  = os.environ.get("NOVELA_API_URL",   "http://localhost:8000")
+NATS_URL        = os.environ.get("NATS_URL",         "nats://localhost:4223")
+NOVELA_API_URL  = os.environ.get("NOVELA_API_URL",   "http://localhost:8001")
 NOVELA_API_KEY  = os.environ.get("NOVELA_API_KEY",   "")
 TWIN_STORE      = os.path.expanduser("~/.sorabbyngo/byngox/twins.json")
 PUSH_INTERVAL   = int(os.environ.get("TWIN_PUSH_INTERVAL_S", "10"))   # Push to Novela every N seconds

@@ -16,7 +16,7 @@ from .base_agent import BaseAgent
 
 log = logging.getLogger(__name__)
 
-NATS_URL       = os.environ.get("NATS_URL", "nats://localhost:4222")
+NATS_URL       = os.environ.get("NATS_URL", "nats://localhost:4223")
 AGENT_SUBJECT  = os.environ.get("LEARN_SUBJECT", "byngox.learn.feedback")
 FEEDBACK_LOG   = os.environ.get("FEEDBACK_LOG",
     os.path.expanduser("~/.sorabbyngo/byngox/feedback.jsonl"))

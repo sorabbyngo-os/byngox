@@ -17,7 +17,7 @@ import nats
 
 log = logging.getLogger(__name__)
 
-NATS_URL        = os.environ.get("NATS_URL",       "nats://localhost:4222")
+NATS_URL        = os.environ.get("NATS_URL",       "nats://localhost:4223")
 OLLAMA_URL      = os.environ.get("OLLAMA_URL",     "http://localhost:11434")
 AGENT_SUBJECT   = os.environ.get("HEALTH_AGENT_SUBJECT", "byngox.health.analyse")
 REPLY_TIMEOUT   = float(os.environ.get("HEALTH_AGENT_TIMEOUT", "120"))

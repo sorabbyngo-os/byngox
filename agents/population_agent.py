@@ -17,7 +17,7 @@ from .base_agent import BaseAgent
 
 log = logging.getLogger(__name__)
 
-NATS_URL      = os.environ.get("NATS_URL", "nats://localhost:4222")
+NATS_URL      = os.environ.get("NATS_URL", "nats://localhost:4223")
 PING_SUBJECT  = os.environ.get("POPULATION_PING_SUBJECT", "byngox.population.ping")
 QUERY_SUBJECT = os.environ.get("POPULATION_QUERY_SUBJECT","byngox.population.query")
 STATS_LOG     = os.environ.get("POPULATION_STATS_LOG",

@@ -17,9 +17,9 @@ from .base_agent import BaseAgent
 
 log = logging.getLogger(__name__)
 
-NATS_URL       = os.environ.get("NATS_URL",       "nats://localhost:4222")
+NATS_URL       = os.environ.get("NATS_URL",       "nats://localhost:4223")
 AGENT_SUBJECT  = os.environ.get("DRUG_AGENT_SUBJECT", "byngox.drug.verify")
-NOVELA_URL     = os.environ.get("NOVELA_URL",     "http://localhost:8000")
+NOVELA_URL     = os.environ.get("NOVELA_URL",     "http://localhost:8001")
 NOVELA_TOKEN   = os.environ.get("NOVELA_SERVICE_TOKEN", "")
 
 

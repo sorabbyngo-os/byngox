@@ -19,7 +19,7 @@ from nats.js.api import ConsumerConfig, DeliverPolicy
 
 log = logging.getLogger("byngox.security_agent")
 
-NATS_URL        = os.environ.get("NATS_URL",    "nats://localhost:4222")
+NATS_URL        = os.environ.get("NATS_URL",    "nats://localhost:4223")
 OLLAMA_URL      = os.environ.get("OLLAMA_URL",  "http://localhost:11434")
 SECURITY_MODEL  = os.environ.get("SECURITY_MODEL", "phi4-mini")
 
