@@ -1,43 +1,104 @@
-# Byngox
-> **8-Agent Swarm Reasoning Engine** — Sorabbyngo Labs
+<p align="center">
+  <img src="./assets/banner.svg" alt="Byngox" width="800"/>
+</p>
+<p align="center">
+  <strong>Byngox — 8-Agent Swarm Reasoning Engine</strong><br/>
+  The cognitive intelligence core of SORABBYNGO OS
+</p>
+<p align="center">
+  <img src="https://img.shields.io/badge/agents-8-orange?style=flat-square"/>
+  <img src="https://img.shields.io/badge/protocol-ACP%20over%20NATS-orange?style=flat-square"/>
+  <img src="https://img.shields.io/badge/AI-vLLM%20%2B%20Ollama-darkorange?style=flat-square"/>
+  <img src="https://img.shields.io/badge/CML-wired-orange?style=flat-square"/>
+</p>
 
-The cognitive intelligence core of SORABBYNGO OS. Six health-specialized agents plus network and learning coordination, communicating via ACP over NATS JetStream.
+---
+
+Byngox is the swarm intelligence engine of SORABBYNGO OS. Eight specialized agents communicate via ACP (Agent Communication Protocol) over NATS JetStream. Each agent owns a domain — health, drugs, context, network, learning, population, security, and coordination. Together they reason, decide, and act.
+
+---
+
+## Agent swarm
+
+```mermaid
+graph TD
+    COORD["coordination_agent\norchestrates the swarm"]
+    HEALTH["health_agent\nclinical intelligence"]
+    DRUG["drug_agent\ncounterfeit + interaction"]
+    CTX["context_agent\nuser context + memory"]
+    NET["network_agent\nmesh + connectivity"]
+    LEARN["learning_agent\ncontinuous improvement"]
+    POP["population_agent\nepidemic + risk patterns"]
+    SEC["security_agent\ncyberwall + sentinel wired"]
+
+    COORD <-->|ACP| HEALTH
+    COORD <-->|ACP| DRUG
+    COORD <-->|ACP| CTX
+    COORD <-->|ACP| NET
+    COORD <-->|ACP| LEARN
+    COORD <-->|ACP| POP
+    COORD <-->|ACP| SEC
+    HEALTH <-->|ACP| DRUG
+    SEC -->|NATS| CW["sorabbyngo-cyberwall"]
+    SEC -->|NATS| SR["sentinel-runtime"]
+```
+
+---
 
 ## Agents
-| Agent | Role |
+
+| Agent | Domain | Key capability |
+|---|---|---|
+| `coordination_agent` | Orchestration | Routes queries, resolves conflicts, aggregates |
+| `health_agent` | Clinical | Patient risk, symptom analysis, care pathway |
+| `drug_agent` | Pharmacology | Counterfeit detection, drug interactions, supply chain |
+| `context_agent` | User context | Memory, preferences, session state |
+| `network_agent` | Connectivity | Mesh health, peer trust, offline sync |
+| `learning_agent` | Improvement | Feedback loops, model fine-tuning signals |
+| `population_agent` | Epidemiology | Disease patterns, risk maps, outbreak detection |
+| `security_agent` | Defence | Cyberwall integration, threat correlation, escalation |
+
+---
+
+## ACP — Agent Communication Protocol
+
+```
+sorabbyngo.byngox.acp.<target_agent>
+{
+  "from":      "health_agent",
+  "to":        "drug_agent",
+  "action":    "check_interaction",
+  "payload":   { "drugs": ["artemether", "lumefantrine"] },
+  "timestamp": "2026-04-27T..."
+}
+```
+
+---
+
+## Quick start
+
+```bash
+# Start full swarm
+python3 byngox_runtime.py
+
+# Run tests
+pytest tests/ -v
+```
+
+---
+
+## Part of SORABBYNGO OS
+
+| Repo | Role |
 |---|---|
-| health_agent | Clinical decision support, triage |
-| drug_agent | Medication verification, counterfeit detection |
-| context_agent | Patient history, episodic memory |
-| network_agent | Byngonet coordination, distributed tasks |
-| learning_agent | Feedback loops, model improvement |
-| population_agent | Epidemiology, outbreak detection, heatmaps |
+| [chameha](https://github.com/sorabbyngo-Labs/chameha) | Voice interface |
+| [cml](https://github.com/sorabbyngo-Labs/cml) | Safety filter |
+| [sorabbyngo-cyberwall](https://github.com/sorabbyngo-Labs/sorabbyngo-cyberwall) | Security layer |
+| [byngonet](https://github.com/sorabbyngo-Labs/byngonet) | Mesh network |
 
-## Intelligence Tiers
+---
 
-| Tier | Models | Runtime | Condition |
-|---|---|---|---|
-| Tier 1 | Phi-4 Mini, Gemma 3 2B, SmolLM2 | Ollama | Always-on, no internet |
-| Tier 2 | Gemma 3 4B, Phi-4 INT8 | Ollama | GPU/NPU devices |
-| Tier 3 | Qwen 2.5 72B INT4, Mistral Small 3.1 | Ollama | Performance devices |
-| Tier 4 | DeepSeek-R1 70B, Mixtral 8x22B, LLaMA 3.1 70B | Byngox Prime vLLM | Self-hosted H100/A100 |
-
-**Tier 4 = Byngox Prime** — a privately operated inference cluster.  
-No external API keys. No data leaves Sorabbyngo infrastructure.
-
-### Clinical Intelligence (Novela integration)
-| Model | Role |
-|---|---|
-| GatorTron | Clinical NLP — trained on 90B words of EHR data |
-| Meditron-70B | Clinical decision support, medical guidelines |
-| BioMistral | Medical reasoning, drug interactions |
-| ClinicalT5 | Structured output: SOAP notes, discharge summaries |
-
-## Stack
-- Python 3.12 + FastAPI
-- NATS JetStream (ACP transport)
-- LanceDB (vector store, offline-first)
-- Neo4j (medical knowledge graph)
-- ONNX Runtime (local inference)
-
-**Sorabbyngo Company** — Kisii, Kenya | 2026
+<p align="center">
+  <strong>Sorabbyngo Company</strong> &nbsp;·&nbsp; Kisii, Kenya &nbsp;·&nbsp; 2026<br/>
+  <em>Rhythm of Digital Life</em>
+</p>
