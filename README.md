@@ -91,10 +91,10 @@ pytest tests/ -v
 
 | Repo | Role |
 |---|---|
-| [chameha](https://github.com/sorabbyngo-Labs/chameha) | Voice interface |
-| [cml](https://github.com/sorabbyngo-Labs/cml) | Safety filter |
-| [sorabbyngo-cyberwall](https://github.com/sorabbyngo-Labs/sorabbyngo-cyberwall) | Security layer |
-| [byngonet](https://github.com/sorabbyngo-Labs/byngonet) | Mesh network |
+| [chameha](https://github.com/sorabbyngo-os/chameha) | Voice interface |
+| [cml](https://github.com/sorabbyngo-os/cml) | Safety filter |
+| [sorabbyngo-cyberwall](https://github.com/citadel-sec/sorabbyngo-cyberwall) | Security layer |
+| [byngonet](https://github.com/sorabbyngo-os/byngonet) | Mesh network |
 
 ---
 
