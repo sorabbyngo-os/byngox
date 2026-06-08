@@ -152,11 +152,6 @@ class ByngoxRuntime:
 
 async def main():
     nodeid = _get_nodeid()
-
-    log.info("╔══════════════════════════════════════════════════╗")
-    log.info("║   BYNGOX — Unified Health Intelligence Layer     ║")
-    log.info("║   8 async + 5 sync agents | NATS | Africa-first  ║")
-    log.info("╚══════════════════════════════════════════════════╝")
     log.info("NodeID: %s...", nodeid[:16])
 
     # Start sync pipeline in daemon threads

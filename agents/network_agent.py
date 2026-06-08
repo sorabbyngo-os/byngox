@@ -15,7 +15,7 @@ from .base_agent import BaseAgent
 
 log = logging.getLogger(__name__)
 
-NATS_URL      = os.environ.get("NATS_URL",    "nats://localhost:4223")
+NATS_URL      = os.environ.get("NATS_URL",    "nats://localhost:4222")
 MESH_SUBJECT  = os.environ.get("MESH_SUBJECT","byngox.network.mesh")
 
 

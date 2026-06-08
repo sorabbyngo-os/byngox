@@ -13,7 +13,7 @@ import uuid
 
 log = logging.getLogger("byngox.cml_client")
 
-NATS_URL    = os.environ.get("NATS_URL",    "nats://localhost:4223")
+NATS_URL    = os.environ.get("NATS_URL",    "nats://localhost:4222")
 CML_SUBJECT = "sorabbyngo.cml.filter.request"
 CML_TIMEOUT = float(os.environ.get("CML_TIMEOUT", "5.0"))
 
