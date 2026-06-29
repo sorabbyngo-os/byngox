@@ -1,18 +1,49 @@
 # Hardware Agent
 
-The Hardware Agent reasons about device capabilities.
+## Purpose
 
-It does not control hardware.
+The Hardware Agent is the hardware reasoning component of Byngox.
 
-Responsibilities
+Unlike HAL, which communicates directly with hardware,
+the Hardware Agent maintains a semantic understanding of the device.
 
-- Read hardware profile
-- Estimate available resources
-- Evaluate CPU load
-- Evaluate GPU load
-- Evaluate battery state
-- Evaluate thermal limits
-- Choose execution strategy
-- Recommend resource allocation
+It continuously builds a live hardware profile and exposes it to
+other reasoning agents and AION.
 
-Execution is delegated to the AI Hardware Controller.
+---
+
+## Responsibilities
+
+• CPU analysis
+
+• GPU analysis
+
+• RAM analysis
+
+• Thermal analysis
+
+• Battery health
+
+• Storage health
+
+• Device capabilities
+
+• Sensor availability
+
+• Camera capabilities
+
+• Audio capabilities
+
+• Power constraints
+
+• Performance prediction
+
+• Resource estimation
+
+• Safe execution recommendations
+
+---
+
+The Hardware Agent never directly controls hardware.
+
+All execution is delegated to AION through the Capability Broker.
