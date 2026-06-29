@@ -13,3 +13,40 @@
 | Intelligence   | Complex reasoning           |
 | Twin           | Digital twins               |
 
+# Agent Responsibilities
+
+## Coordination Agent
+
+Coordinates every request.
+
+## Hardware Agent
+
+Maintains device awareness.
+
+## Context Agent
+
+Conversation memory.
+
+## Learning Agent
+
+Learning signals.
+
+## Security Agent
+
+Threat reasoning.
+
+## Network Agent
+
+Network intelligence.
+
+## Population Agent
+
+Population analytics.
+
+## Health Agent
+
+Medical reasoning.
+
+## Drug Agent
+
+Drug knowledge.
