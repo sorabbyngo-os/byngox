@@ -2,7 +2,7 @@
   <img src="./assets/banner.svg" alt="Byngox" width="800"/>
 </p>
 <p align="center">
-  <strong>Byngox — 8-Agent Swarm Reasoning Engine</strong><br/>
+  <strong>Byngox — < Modular Multi-Agent Reasoning Engine/strong><br/>
   The cognitive intelligence core of SORABBYNGO OS
 </p>
 <p align="center">
@@ -14,7 +14,7 @@
 
 ---
 
-Byngox is the swarm intelligence engine of SORABBYNGO OS. Eight specialized agents communicate via ACP (Agent Communication Protocol) over NATS JetStream. Each agent owns a domain — health, drugs, context, network, learning, population, security, and coordination. Together they reason, decide, and act.
+Byngox is the swarm intelligence engine of SORABBYNGO OS.A growing collection of specialized reasoning agents communicate via ACP (Agent Communication Protocol) over NATS JetStream.  Each agent owns a specialized reasoning domain and collaborates through ACP.— health, drugs, context, network, learning, population, security, and coordination. Together they reason, decide, and act.
 
 ---
 
@@ -59,6 +59,22 @@ graph TD
 | `security_agent` | Defence | Cyberwall integration, threat correlation, escalation |
 
 ---
+
+                   Chameha
+                       │
+                     AION
+                       │
+               ACP Coordinator
+                       │
+      ┌─────────────────────────────────┐
+      │                                 │
+ Health Agent                Hardware Agent
+ Drug Agent                  Context Agent
+ Learning Agent              Network Agent
+ Security Agent              Population Agent
+ Recommendation Agent        Intelligence Agent
+ Twin Agent                  Future Agents...
+
 
 ## ACP — Agent Communication Protocol
 
