@@ -1,0 +1,28 @@
+[workspace]
+resolver = "2"
+
+members = [
+    "crates/runtime",
+    "crates/events",
+    "crates/scheduler",
+    "crates/inference",
+    "crates/model_registry",
+    "crates/capability_registry",
+    "crates/model_router",
+    "crates/model_lifecycle",
+    "crates/provider_manager",
+    "crates/benchmark",
+    "crates/memory",
+    "crates/context",
+    "crates/audio",
+    "crates/vision",
+    "crates/motion",
+    "crates/security",
+    "crates/networking",
+    "crates/power",
+    "crates/devices",
+    "crates/storage",
+    "crates/hal",
+    "crates/kernel",
+    "crates/byngox-cli"
+]
