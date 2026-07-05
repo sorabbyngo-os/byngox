@@ -1,14 +1,58 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
+use std::sync::{Arc, RwLock};
+
+#[derive(Debug, Clone)]
+pub enum Event {
+    SystemStarted,
+    SystemShutdown,
+
+    CapabilityRegistered(String),
+
+    CapabilityRemoved(String),
+
+    ModelInstalled(String),
+
+    ModelRemoved(String),
+
+    InferenceRequested(String),
+
+    InferenceCompleted(String),
+
+    MemoryPressure,
+
+    PowerChanged,
+
+    WakeWordDetected,
+
+    SecurityAlert(String),
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+pub trait EventListener: Send + Sync {
+    fn on_event(&self, event: &Event);
+}
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
+pub struct EventBus {
+    listeners: Arc<RwLock<Vec<Box<dyn EventListener>>>>,
+}
+
+impl EventBus {
+    pub fn new() -> Self {
+        Self {
+            listeners: Arc::new(RwLock::new(Vec::new())),
+        }
+    }
+
+    pub fn subscribe<L>(&self, listener: L)
+    where
+        L: EventListener + 'static,
+    {
+        self.listeners.write().unwrap().push(Box::new(listener));
+    }
+
+    pub fn publish(&self, event: Event) {
+        let listeners = self.listeners.read().unwrap();
+
+        for listener in listeners.iter() {
+            listener.on_event(&event);
+        }
     }
 }
