@@ -1,14 +1,11 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
-}
+pub mod engine;
+pub mod request;
+pub mod response;
+pub mod session;
+pub mod error;
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
-}
+pub use engine::InferenceEngine;
+pub use request::InferenceRequest;
+pub use response::InferenceResponse;
+pub use session::InferenceSession;
+pub use error::InferenceError;
