@@ -25,4 +25,4 @@ members = [
     "crates/hal",
     "crates/kernel",
     "crates/byngox-cli"
-]
+, "crates/coordinator"]
