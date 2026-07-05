@@ -1,14 +1,8 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
-}
+pub mod scheduler;
+pub mod task;
+pub mod priority;
+pub mod queue;
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
-}
+pub use scheduler::Scheduler;
+pub use task::{Task, TaskState};
+pub use priority::Priority;
