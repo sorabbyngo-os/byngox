@@ -1,9 +1,9 @@
 use std::collections::HashMap;
 
-use crate::AIModel;
+use crate::Model;
 
 pub struct ModelRegistry {
-    models: HashMap<String, AIModel>,
+    models: HashMap<String, Model>,
 }
 
 impl ModelRegistry {
@@ -13,19 +13,15 @@ impl ModelRegistry {
         }
     }
 
-    pub fn register(&mut self, model: AIModel) {
+    pub fn register(&mut self, model: Model) {
         self.models.insert(model.id.clone(), model);
     }
 
-    pub fn unregister(&mut self, id: &str) {
-        self.models.remove(id);
-    }
-
-    pub fn get(&self, id: &str) -> Option<&AIModel> {
+    pub fn get(&self, id: &str) -> Option<&Model> {
         self.models.get(id)
     }
 
-    pub fn all(&self) -> Vec<&AIModel> {
-        self.models.values().collect()
+    pub fn models(&self) -> impl Iterator<Item = &Model> {
+        self.models.values()
     }
 }

@@ -1,14 +1,16 @@
-#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+#[derive(Clone, Debug, PartialEq, Eq, Hash)]
 pub enum Capability {
-    Chat,
+    Reasoning,
     Coding,
+    Vision,
+    Audio,
     SpeechRecognition,
     SpeechSynthesis,
-    Vision,
-    OCR,
     Translation,
     Planning,
-    MedicalReasoning,
+    Embedding,
     ImageGeneration,
     VideoUnderstanding,
+    VideoGeneration,
+    Robotics,
 }

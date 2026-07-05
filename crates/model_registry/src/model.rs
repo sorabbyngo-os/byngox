@@ -1,34 +1,9 @@
-#[derive(Debug, Clone)]
-pub enum ModelType {
-    LLM,
-    Vision,
-    Audio,
-    Multimodal,
-    Embedding,
-    OCR,
-    Translation,
-    Reasoning,
-}
+use crate::{Capability, ModelMetadata};
 
-#[derive(Debug, Clone)]
-pub enum ModelLocation {
-    Local,
-    Remote,
-}
-
-#[derive(Debug, Clone)]
-pub struct AIModel {
+#[derive(Clone, Debug)]
+pub struct Model {
     pub id: String,
-    pub name: String,
-    pub version: String,
-
-    pub model_type: ModelType,
-
     pub provider: String,
-
-    pub location: ModelLocation,
-
-    pub enabled: bool,
-
-    pub priority: u32,
+    pub metadata: ModelMetadata,
+    pub capabilities: Vec<Capability>,
 }
