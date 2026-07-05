@@ -1,58 +1,51 @@
-use std::sync::{Arc, RwLock};
+use std::time::SystemTime;
+pub mod bus;
+pub type EngineId = String;
+pub type EventType = String;
 
 #[derive(Debug, Clone)]
-pub enum Event {
-    SystemStarted,
-    SystemShutdown,
-
-    CapabilityRegistered(String),
-
-    CapabilityRemoved(String),
-
-    ModelInstalled(String),
-
-    ModelRemoved(String),
-
-    InferenceRequested(String),
-
-    InferenceCompleted(String),
-
-    MemoryPressure,
-
-    PowerChanged,
-
-    WakeWordDetected,
-
-    SecurityAlert(String),
+pub struct Event {
+    pub id: u64,
+    pub event_type: EventType,
+    pub source: EngineId,
+    pub target: Option<EngineId>,
+    pub timestamp: SystemTime,
+    pub payload: EventPayload,
 }
 
-pub trait EventListener: Send + Sync {
-    fn on_event(&self, event: &Event);
+#[derive(Debug, Clone)]
+pub enum EventPayload {
+    None,
+
+    Text(String),
+
+    Binary(Vec<u8>),
+
+    AudioFrame(Vec<i16>),
+
+    ImageFrame(Vec<u8>),
+
+    ModelRequest(ModelRequest),
+
+    ModelResponse(ModelResponse),
+
+    CapabilityRequest(String),
+
+    CapabilityResponse(String),
+
+    Shutdown,
+
+    Heartbeat,
 }
 
-pub struct EventBus {
-    listeners: Arc<RwLock<Vec<Box<dyn EventListener>>>>,
+#[derive(Debug, Clone)]
+pub struct ModelRequest {
+    pub task: String,
+    pub input: String,
 }
 
-impl EventBus {
-    pub fn new() -> Self {
-        Self {
-            listeners: Arc::new(RwLock::new(Vec::new())),
-        }
-    }
-
-    pub fn subscribe<L>(&self, listener: L)
-    where
-        L: EventListener + 'static,
-    {
-        self.listeners.write().unwrap().push(Box::new(listener));
-    }
-
-    pub fn publish(&self, event: Event) {
-        let listeners = self.listeners.read().unwrap();
-
-        for listener in listeners.iter() {
-            listener.on_event(&event);
-        }
-    }
+#[derive(Debug, Clone)]
+pub struct ModelResponse {
+    pub model: String,
+    pub output: String,
 }
