@@ -18,13 +18,11 @@ impl ProviderManager {
 
     }
 
-    pub fn registry(&self) -> &ProviderRegistry {
+    pub fn registry(
 
-        &self.registry
+        &mut self,
 
-    }
-
-    pub fn registry_mut(&mut self) -> &mut ProviderRegistry {
+    ) -> &mut ProviderRegistry {
 
         &mut self.registry
 
