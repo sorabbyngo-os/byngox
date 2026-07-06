@@ -1,49 +1,40 @@
-use crate::{
-    CandidateModel,
-    RoutingRequest,
-    RoutingResponse,
-};
+use benchmark_engine::ModelScore;
+
+pub struct RoutingRequest;
+
+pub struct RoutingResponse {
+
+    pub model: ModelScore,
+
+}
 
 pub struct ModelRouter;
 
 impl ModelRouter {
 
     pub fn new() -> Self {
-
         Self
+    }
+
+   pub fn select(
+    &self,
+    candidates: Vec<ModelScore>,
+   ) -> Option<RoutingResponse> {
+
+       candidates.first().map(|candidate| RoutingResponse {
+
+           model: candidate.clone(),
+
+       })
 
     }
 
-    pub fn select(
+}
 
-        &self,
+impl RoutingResponse {
 
-        _request: RoutingRequest,
-
-        mut candidates: Vec<CandidateModel>,
-
-    ) -> Option<RoutingResponse> {
-
-        candidates.sort_by(|a, b| {
-
-            b.benchmark_score
-                .partial_cmp(&a.benchmark_score)
-                .unwrap()
-
-        });
-
-        let best = candidates.first()?;
-
-        Some(
-
-            RoutingResponse {
-
-                selected_model: best.name.clone(),
-
-            }
-
-        )
-
-    }
+  pub fn name(&self) -> &str {
+    &self.model.model.id
+  }
 
 }

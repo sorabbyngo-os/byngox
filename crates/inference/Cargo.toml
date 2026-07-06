@@ -5,3 +5,12 @@ edition = "2024"
 
 [dependencies]
 uuid = { version = "1", features = ["v4"] }
+
+benchmark_engine={path="../benchmark_engine"}
+capability_registry={path="../capability_registry"}
+context={path="../context"}
+memory={path="../memory"}
+model_registry={path="../model_registry"}
+model_router={path="../model_router"}
+provider_manager={path="../provider_manager"}
+resource_manager={path="../resource_manager"}

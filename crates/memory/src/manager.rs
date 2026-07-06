@@ -18,4 +18,23 @@ impl MemoryManager {
 
     }
 
+pub fn store_interaction(
+    &mut self,
+    user: &str,
+    prompt: &str,
+    response: &str,
+    ) {
+
+    println!(
+        "[memory] {} -> {}",
+        user,
+        prompt
+    );
+
+    println!(
+        "[response] {}",
+        response
+    );
+
+    }
 }

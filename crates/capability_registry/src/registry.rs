@@ -59,5 +59,11 @@ impl CapabilityRegistry {
         self.capabilities.values()
 
     }
-
+    
+    pub fn resolve(
+    &self,
+    id: &str,
+    ) -> Option<&Capability> {
+    self.get(id)
+    }
 }

@@ -13,6 +13,9 @@ version = "0.1.0"
 [[package]]
 name = "benchmark_engine"
 version = "0.1.0"
+dependencies = [
+ "model_registry",
+]
 
 [[package]]
 name = "bumpalo"
@@ -93,6 +96,14 @@ version = "0.1.0"
 name = "inference"
 version = "0.1.0"
 dependencies = [
+ "benchmark_engine",
+ "capability_registry",
+ "context",
+ "memory",
+ "model_registry",
+ "model_router",
+ "provider_manager",
+ "resource_manager",
  "uuid",
 ]
 
@@ -131,10 +142,17 @@ version = "0.1.0"
 [[package]]
 name = "model_registry"
 version = "0.1.0"
+dependencies = [
+ "capability_registry",
+]
 
 [[package]]
 name = "model_router"
 version = "0.1.0"
+dependencies = [
+ "benchmark_engine",
+ "model_registry",
+]
 
 [[package]]
 name = "motion"
@@ -172,6 +190,11 @@ dependencies = [
 [[package]]
 name = "provider_manager"
 version = "0.1.0"
+dependencies = [
+ "benchmark_engine",
+ "context",
+ "model_registry",
+]
 
 [[package]]
 name = "quote"

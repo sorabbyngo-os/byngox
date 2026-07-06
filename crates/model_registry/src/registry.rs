@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::Model;
+use crate::{Capability, Model};
 
 pub struct ModelRegistry {
     models: HashMap<String, Model>,
@@ -23,5 +23,16 @@ impl ModelRegistry {
 
     pub fn models(&self) -> impl Iterator<Item = &Model> {
         self.models.values()
+    }
+
+    pub fn models_for(
+        &self,
+        capability: &Capability,
+    ) -> Vec<Model> {
+        self.models
+            .values()
+            .filter(|m| m.capabilities.contains(capability))
+            .cloned()
+            .collect()
     }
 }
