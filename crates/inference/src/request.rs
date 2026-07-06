@@ -1,8 +1,6 @@
 #[derive(Clone, Debug)]
 pub struct InferenceRequest {
-
-    pub model: String,
-
+    pub capability: String,
     pub prompt: String,
-
+    pub user_id: String,
 }

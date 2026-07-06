@@ -1,10 +1,7 @@
-use uuid::Uuid;
-
 use crate::{
     InferenceError,
     InferenceRequest,
     InferenceResponse,
-    InferenceSession,
 };
 
 pub struct InferenceEngine;
@@ -12,51 +9,29 @@ pub struct InferenceEngine;
 impl InferenceEngine {
 
     pub fn new() -> Self {
-
         Self
-
     }
 
-    pub fn create_session(
-
+    pub fn execute(
         &self,
-
-    ) -> InferenceSession {
-
-        InferenceSession {
-
-            id: Uuid::new_v4(),
-
-        }
-
-    }
-
-    pub fn infer(
-
-        &self,
-
-        _session: &InferenceSession,
-
         request: InferenceRequest,
+    ) -> Result<InferenceResponse, InferenceError> {
 
-    ) -> Result<InferenceResponse,InferenceError> {
+        println!(
+            "Executing capability: {}",
+            request.capability
+        );
 
         Ok(
-
             InferenceResponse {
 
+                model: "placeholder".into(),
+
                 output: format!(
-
-                    "Inference executed using {}",
-
-                    request.model,
-
+                    "Processed: {}",
+                    request.prompt
                 ),
-
             }
-
         )
-
     }
-
 }
