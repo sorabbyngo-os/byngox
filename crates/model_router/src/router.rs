@@ -1,6 +1,7 @@
 use crate::{
-    RoutingDecision,
+    CandidateModel,
     RoutingRequest,
+    RoutingResponse,
 };
 
 pub struct ModelRouter;
@@ -13,21 +14,35 @@ impl ModelRouter {
 
     }
 
-    pub fn route(
+    pub fn select(
 
         &self,
 
-        request: RoutingRequest,
+        _request: RoutingRequest,
 
-    ) -> RoutingDecision {
+        mut candidates: Vec<CandidateModel>,
 
-        RoutingDecision {
+    ) -> Option<RoutingResponse> {
 
-            provider: "local".into(),
+        candidates.sort_by(|a, b| {
 
-            model: format!("default-{}", request.capability),
+            b.benchmark_score
+                .partial_cmp(&a.benchmark_score)
+                .unwrap()
 
-        }
+        });
+
+        let best = candidates.first()?;
+
+        Some(
+
+            RoutingResponse {
+
+                selected_model: best.name.clone(),
+
+            }
+
+        )
 
     }
 
