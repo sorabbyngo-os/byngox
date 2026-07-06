@@ -26,4 +26,4 @@ members = [
     "crates/kernel",
     "crates/byngox-cli"
 , "crates/coordinator",
- "crates/benchmark_engine"]
+ "crates/benchmark_engine", "crates/resource_manager"]
