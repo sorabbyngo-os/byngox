@@ -1,17 +1,21 @@
-pub trait InferenceProvider {
+#[derive(Clone, Debug)]
 
-    fn id(&self) -> &str;
+pub enum ProviderType {
 
-    fn available(&self) -> bool;
+    Ollama,
 
-    fn infer(
+    LlamaCpp,
 
-        &self,
+    Vllm,
 
-        model: &str,
+    Onnx,
 
-        prompt: &str,
+    OpenAI,
 
-    ) -> Result<String,String>;
+    Anthropic,
+
+    Gemini,
+
+    Custom(String),
 
 }

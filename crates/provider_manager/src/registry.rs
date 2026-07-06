@@ -1,12 +1,10 @@
 use std::collections::HashMap;
 
-use crate::InferenceProvider;
+use crate::ProviderType;
 
 pub struct ProviderRegistry {
 
-    providers:
-
-        HashMap<String, Box<dyn InferenceProvider>>,
+    providers: HashMap<String, ProviderType>,
 
 }
 
@@ -26,13 +24,13 @@ impl ProviderRegistry {
 
         &mut self,
 
-        provider: Box<dyn InferenceProvider>,
+        model: impl Into<String>,
+
+        provider: ProviderType,
 
     ) {
 
-        self.providers
-
-            .insert(provider.id().into(), provider);
+        self.providers.insert(model.into(), provider);
 
     }
 
@@ -40,11 +38,11 @@ impl ProviderRegistry {
 
         &self,
 
-        id:&str,
+        model: &str,
 
-    ) -> Option<&Box<dyn InferenceProvider>> {
+    ) -> Option<&ProviderType> {
 
-        self.providers.get(id)
+        self.providers.get(model)
 
     }
 
