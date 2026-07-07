@@ -1,5 +1,5 @@
 #[derive(Clone, Debug, PartialEq, Eq, Hash)]
-pub struct Capability {
+pub struct CapabilityDefinition {
 
     pub id: String,
 

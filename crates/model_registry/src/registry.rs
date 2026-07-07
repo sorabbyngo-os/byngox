@@ -1,7 +1,6 @@
 use std::collections::HashMap;
 
-use crate::{Capability, Model};
-
+use ai_core::{Capability, Model};
 pub struct ModelRegistry {
     models: HashMap<String, Model>,
 }

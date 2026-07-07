@@ -1,69 +1,43 @@
 use std::collections::HashMap;
 
-use crate::Capability;
+use crate::CapabilityDefinition;
 
 pub struct CapabilityRegistry {
-
-    capabilities: HashMap<String, Capability>,
-
+    capabilities: HashMap<String, CapabilityDefinition>,
 }
 
 impl CapabilityRegistry {
-
     pub fn new() -> Self {
-
         Self {
-
             capabilities: HashMap::new(),
-
         }
-
     }
 
     pub fn register(
-
         &mut self,
-
-        capability: Capability,
-
+        capability: CapabilityDefinition,
     ) {
-
-        self.capabilities.insert(
-
-            capability.id.clone(),
-
-            capability,
-
-        );
-
+        self.capabilities
+            .insert(capability.id.clone(), capability);
     }
 
     pub fn get(
-
         &self,
-
-        id:&str,
-
-    ) -> Option<&Capability> {
-
+        id: &str,
+    ) -> Option<&CapabilityDefinition> {
         self.capabilities.get(id)
-
     }
 
     pub fn all(
-
         &self,
-
-    ) -> impl Iterator<Item=&Capability> {
-
+    ) -> impl Iterator<Item = &CapabilityDefinition> {
         self.capabilities.values()
-
     }
-    
+
     pub fn resolve(
-    &self,
-    id: &str,
-    ) -> Option<&Capability> {
-    self.get(id)
+        &self,
+        id: &str,
+    ) -> Option<&CapabilityDefinition> {
+        self.get(id)
     }
 }

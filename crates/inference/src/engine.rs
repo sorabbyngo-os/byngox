@@ -67,11 +67,8 @@ impl InferenceEngine {
         //--------------------------------------------------
         // STEP 1
         //--------------------------------------------------
-
-        let capability = self
-            .capability_registry
-            .resolve(&request.capability)
-            .ok_or(InferenceError::CapabilityNotFound)?;
+     
+       let capability = &request.capability;
 
         //--------------------------------------------------
         // STEP 2

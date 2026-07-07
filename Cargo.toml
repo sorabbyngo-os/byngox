@@ -12,8 +12,12 @@ members = [
     "crates/model_lifecycle",
     "crates/provider_manager",
     "crates/benchmark",
+    "crates/benchmark_engine",
     "crates/memory",
     "crates/context",
+    "crates/resource_manager",
+    "crates/coordinator",
+    "crates/ai_core",
     "crates/audio",
     "crates/vision",
     "crates/motion",
@@ -24,6 +28,5 @@ members = [
     "crates/storage",
     "crates/hal",
     "crates/kernel",
-    "crates/byngox-cli"
-, "crates/coordinator",
- "crates/benchmark_engine", "crates/resource_manager"]
+    "crates/byngox-cli",
+]

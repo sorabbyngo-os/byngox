@@ -5,3 +5,4 @@ edition = "2024"
 
 [dependencies]
 capability_registry = { path = "../capability_registry" }
+ai_core = { path = "../ai_core" }
