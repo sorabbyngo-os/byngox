@@ -1,68 +1,30 @@
 use crate::{
-    ExecutionPlan,
+    //CoordinatorError,
     InferenceResult,
     InferenceTask,
-    ModelSelection,
+    //Pipeline,
+};
+use crate::{
+    CoordinatorError,
 };
 
-pub struct InferenceCoordinator;
+use crate::pipeline::Pipeline;
+pub struct InferenceCoordinator {
+    pipeline: Pipeline,
+}
 
 impl InferenceCoordinator {
-
     pub fn new() -> Self {
-
-        Self
-
-    }
-
-    pub fn plan(
-
-        &self,
-
-        task: &InferenceTask,
-
-    ) -> ExecutionPlan {
-
-      let selection = ModelSelection {
-          provider: "local".into(),
-          model: format!("best-model-for-{}", task.capability),
-
-          local: true,
-          estimated_cost: 0.0,
-          latency: 0,
-      }; 
-        ExecutionPlan {
-         selection,
-
-         capability: task.capability.clone(),
-
-         requires_memory: true,
-
-         requires_context: true,
-       }
-
+        Self {
+            pipeline: Pipeline::new(),
+        }
     }
 
     pub fn execute(
+        &mut self,
+        task: InferenceTask,
+    ) -> Result<InferenceResult, CoordinatorError> {
 
-        &self,
-
-        plan: ExecutionPlan,
-
-        _task: InferenceTask,
-
-    ) -> InferenceResult {
-
-        InferenceResult {
-
-            output: String::from("Execution completed"),
-
-            provider: plan.selection.provider,
-
-            model: plan.selection.model,
-
-        }
-
+        self.pipeline.execute(task)
     }
-
 }

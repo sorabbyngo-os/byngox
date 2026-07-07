@@ -34,3 +34,8 @@ impl std::fmt::Display for CoordinatorError {
 }
 
 impl std::error::Error for CoordinatorError {}
+impl From<inference::InferenceError> for CoordinatorError {
+    fn from(err: inference::InferenceError) -> Self {
+        CoordinatorError::ExecutionFailed(err.to_string())
+    }
+}
