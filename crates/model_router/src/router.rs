@@ -12,33 +12,20 @@ impl ModelRouter {
         Self
     }
 
-    pub fn select(
-        &self,
-        candidates: Vec<ModelScore>,
-    ) -> Option<RoutingResponse> {
+    pub fn select(&self, candidates: Vec<ModelScore>) -> Option<RoutingResponse> {
+        candidates.first().map(|candidate| RoutingResponse {
+            selection: ModelSelection {
+                provider: candidate.model.provider.clone(),
 
-        candidates.first().map(|candidate| {
+                model: candidate.model.id.clone(),
 
-            RoutingResponse {
+                local: true,
 
-                selection: ModelSelection {
+                estimated_cost: 0.0,
 
-                    provider: candidate.model.provider.clone(),
-
-                    model: candidate.model.id.clone(),
-
-                    local: true,
-
-                    estimated_cost: 0.0,
-
-                    latency: 0,
-
-                }
-
-            }
-
+                latency: 0,
+            },
         })
-
     }
 }
 

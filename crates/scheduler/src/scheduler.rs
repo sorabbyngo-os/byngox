@@ -1,4 +1,4 @@
-use crate::{queue::TaskQueue, Task};
+use crate::{Task, queue::TaskQueue};
 
 pub struct Scheduler {
     queue: TaskQueue,

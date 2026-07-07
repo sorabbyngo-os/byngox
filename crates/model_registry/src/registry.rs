@@ -24,10 +24,7 @@ impl ModelRegistry {
         self.models.values()
     }
 
-    pub fn models_for(
-        &self,
-        capability: &Capability,
-    ) -> Vec<Model> {
+    pub fn models_for(&self, capability: &Capability) -> Vec<Model> {
         self.models
             .values()
             .filter(|m| m.capabilities.contains(capability))

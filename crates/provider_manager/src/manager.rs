@@ -1,8 +1,4 @@
-use crate::{
-    ProviderRegistry,
-    ProviderType,
-};
-
+use crate::{ProviderRegistry, ProviderType};
 
 pub struct ProviderManager {
     registry: ProviderRegistry,
@@ -19,10 +15,7 @@ impl ProviderManager {
         &mut self.registry
     }
 
-   pub fn provider(
-       &self,
-       provider_name: &str,
-   ) -> Option<&ProviderType> {
-       self.registry.get(provider_name)
- }
+    pub fn provider(&self, provider_name: &str) -> Option<&ProviderType> {
+        self.registry.get(provider_name)
+    }
 }

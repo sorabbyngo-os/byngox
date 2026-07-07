@@ -9,11 +9,7 @@ impl ContextWindow {
         Self { max_messages }
     }
 
-    pub fn apply(
-        &self,
-        history: &[Message],
-    ) -> Vec<Message> {
-
+    pub fn apply(&self, history: &[Message]) -> Vec<Message> {
         history
             .iter()
             .rev()

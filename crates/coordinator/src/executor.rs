@@ -1,14 +1,6 @@
-use crate::{
-    ExecutionPlan,
-    InferenceTask,
-};
+use crate::{ExecutionPlan, InferenceTask};
 
-use inference::{
-    InferenceEngine,
-    InferenceError,
-    InferenceRequest,
-    InferenceResponse,
-};
+use inference::{InferenceEngine, InferenceError, InferenceRequest, InferenceResponse};
 
 pub struct Executor {
     engine: InferenceEngine,
@@ -26,16 +18,15 @@ impl Executor {
         plan: &ExecutionPlan,
         task: InferenceTask,
     ) -> Result<InferenceResponse, InferenceError> {
+        let capability = ai_core::Capability::from_str(&plan.capability)
+            .ok_or(InferenceError::CapabilityNotFound)?;
 
-       let capability = ai_core::Capability::from_str(&plan.capability)
-           .ok_or(InferenceError::CapabilityNotFound)?;
+        let request = InferenceRequest {
+            capability,
+            prompt: task.prompt,
+            user_id: String::from("system"),
+        };
 
-       let request = InferenceRequest {
-           capability,
-           prompt: task.prompt,
-           user_id: String::from("system"),
-};
-
-self.engine.execute(request)
+        self.engine.execute(request)
     }
 }

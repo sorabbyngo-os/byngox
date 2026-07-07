@@ -1,9 +1,4 @@
-use crate::{
-    ConversationHistory,
-    ContextState,
-    ContextWindow,
-    Message,
-};
+use crate::{ContextState, ContextWindow, ConversationHistory, Message};
 
 pub struct ContextManager {
     history: ConversationHistory,
@@ -28,9 +23,7 @@ impl ContextManager {
     }
 
     pub fn window(&self) -> Vec<Message> {
-        self.window.apply(
-            self.history.messages(),
-        )
+        self.window.apply(self.history.messages())
     }
 
     pub fn state(&self) -> &ContextState {

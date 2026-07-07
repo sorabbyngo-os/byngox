@@ -1,7 +1,6 @@
 #[derive(Clone, Debug)]
 
 pub enum ProviderType {
-
     Ollama,
 
     LlamaCpp,
@@ -17,5 +16,4 @@ pub enum ProviderType {
     Gemini,
 
     Custom(String),
-
 }

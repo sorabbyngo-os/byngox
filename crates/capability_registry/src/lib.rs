@@ -1,7 +1,7 @@
 pub mod capability;
-pub mod registry;
 pub mod metadata;
+pub mod registry;
 
 pub use capability::CapabilityDefinition;
-pub use registry::CapabilityRegistry;
 pub use metadata::CapabilityMetadata;
+pub use registry::CapabilityRegistry;

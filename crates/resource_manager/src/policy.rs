@@ -1,7 +1,6 @@
 #[derive(Clone, Debug)]
 
 pub enum ExecutionPolicy {
-
     HighPerformance,
 
     Balanced,
@@ -9,5 +8,4 @@ pub enum ExecutionPolicy {
     LowPower,
 
     Emergency,
-
 }

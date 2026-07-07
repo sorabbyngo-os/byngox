@@ -1,11 +1,9 @@
+use crate::CoordinatorError;
 use crate::{
     //CoordinatorError,
     InferenceResult,
     InferenceTask,
     //Pipeline,
-};
-use crate::{
-    CoordinatorError,
 };
 
 use crate::pipeline::Pipeline;
@@ -20,11 +18,7 @@ impl InferenceCoordinator {
         }
     }
 
-    pub fn execute(
-        &mut self,
-        task: InferenceTask,
-    ) -> Result<InferenceResult, CoordinatorError> {
-
+    pub fn execute(&mut self, task: InferenceTask) -> Result<InferenceResult, CoordinatorError> {
         self.pipeline.execute(task)
     }
 }

@@ -1,8 +1,4 @@
-use crate::{
-    InferenceError,
-    InferenceRequest,
-    InferenceResponse,
-};
+use crate::{InferenceError, InferenceRequest, InferenceResponse};
 
 use benchmark_engine::BenchmarkEngine;
 use capability_registry::CapabilityRegistry;
@@ -14,7 +10,6 @@ use provider_manager::ProviderManager;
 use resource_manager::ResourceManager;
 
 pub struct InferenceEngine {
-
     capability_registry: CapabilityRegistry,
 
     model_registry: ModelRegistry,
@@ -33,11 +28,8 @@ pub struct InferenceEngine {
 }
 
 impl InferenceEngine {
-
     pub fn new() -> Self {
-
         Self {
-
             capability_registry: CapabilityRegistry::new(),
 
             model_registry: ModelRegistry::new(),
@@ -57,49 +49,78 @@ impl InferenceEngine {
     }
 
     pub fn execute(
-
         &mut self,
 
         request: InferenceRequest,
-
     ) -> Result<InferenceResponse, InferenceError> {
-
         //--------------------------------------------------
         // STEP 1
         //--------------------------------------------------
-     
-       let capability = &request.capability;
 
+        let capability = &request.capability;
+        let history = self.memory.recent(&request.user_id);
+
+        for (prompt, response) in history {
+
+            self.context.add(
+             context::Message {
+
+               role: context::Role::User,
+
+               content: prompt,
+
+             }
+            );
+
+            self.context.add(
+             context::Message {
+
+            	role: context::Role::Assistant,
+
+            	content: response,
+
+             }
+    	 );
+
+       }
+
+ 	self.context.add(
+           context::Message {
+
+        	role: context::Role::User,
+
+       		 content: request.prompt.clone(),
+
+    	   }
+	);
+
+        let context_window = self.context.window();
         //--------------------------------------------------
         // STEP 2
         //--------------------------------------------------
 
-        let candidates = self
-            .model_registry
-            .models_for(capability);
+        let candidates = self.model_registry.models_for(capability);
 
         //--------------------------------------------------
         // STEP 3
         //--------------------------------------------------
 
-        let ranked =
-            self.benchmark_engine.rank(candidates);
+        let ranked = self.benchmark_engine.rank(candidates);
 
         //--------------------------------------------------
         // STEP 4
         //--------------------------------------------------
 
-        let available =
-            self.resource_manager.filter(ranked);
+        let available = self.resource_manager.filter(ranked);
 
         //--------------------------------------------------
         // STEP 5
         //--------------------------------------------------
 
         let selected = self
-           .router
-           .select(available)
-           .ok_or(InferenceError::NoModelAvailable)?;
+            .router
+            .select(available)
+            .ok_or(InferenceError::NoModelAvailable)?;
 
         //--------------------------------------------------
         // STEP 6
@@ -113,37 +134,19 @@ impl InferenceEngine {
         // STEP 7
         //--------------------------------------------------
 
-       let response = format!(
-           "Provider {:?} executed: {}",
-           provider,
-           request.prompt
-      );
-  
-      //--------------------------------------------------
+        let response = format!("Provider {:?} executed: {}", provider, request.prompt);
+
+        //--------------------------------------------------
         // STEP 8
         //--------------------------------------------------
 
-        self.memory.store_interaction(
+        self.memory
+            .store_interaction(&request.user_id, &request.prompt, &response);
 
-            &request.user_id,
+        Ok(InferenceResponse {
+            model: selected.name().to_string(),
 
-            &request.prompt,
-
-            &response,
-
-        );
-
-        Ok(
-
-            InferenceResponse {
-
-                model: selected.name().to_string(),
-
-                output: response,
-            }
-
-        )
-
+            output: response,
+        })
     }
-
 }

@@ -6,5 +6,4 @@ pub struct CapabilityMetadata {
     pub realtime: bool,
 
     pub offline_supported: bool,
-
 }

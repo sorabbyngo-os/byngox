@@ -1,5 +1,5 @@
-use model_registry::Model;
 use crate::ModelScore;
+use model_registry::Model;
 
 pub struct BenchmarkEngine;
 
@@ -8,10 +8,7 @@ impl BenchmarkEngine {
         Self
     }
 
-    pub fn rank(
-        &self,
-        models: Vec<Model>,
-    ) -> Vec<ModelScore> {
+    pub fn rank(&self, models: Vec<Model>) -> Vec<ModelScore> {
         models
             .into_iter()
             .map(|model| ModelScore {

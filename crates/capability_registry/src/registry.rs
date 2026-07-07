@@ -13,31 +13,19 @@ impl CapabilityRegistry {
         }
     }
 
-    pub fn register(
-        &mut self,
-        capability: CapabilityDefinition,
-    ) {
-        self.capabilities
-            .insert(capability.id.clone(), capability);
+    pub fn register(&mut self, capability: CapabilityDefinition) {
+        self.capabilities.insert(capability.id.clone(), capability);
     }
 
-    pub fn get(
-        &self,
-        id: &str,
-    ) -> Option<&CapabilityDefinition> {
+    pub fn get(&self, id: &str) -> Option<&CapabilityDefinition> {
         self.capabilities.get(id)
     }
 
-    pub fn all(
-        &self,
-    ) -> impl Iterator<Item = &CapabilityDefinition> {
+    pub fn all(&self) -> impl Iterator<Item = &CapabilityDefinition> {
         self.capabilities.values()
     }
 
-    pub fn resolve(
-        &self,
-        id: &str,
-    ) -> Option<&CapabilityDefinition> {
+    pub fn resolve(&self, id: &str) -> Option<&CapabilityDefinition> {
         self.get(id)
     }
 }
