@@ -34,6 +34,9 @@ version = "0.1.0"
 [[package]]
 name = "capability_registry"
 version = "0.1.0"
+dependencies = [
+ "ai_core",
+]
 
 [[package]]
 name = "cfg-if"
@@ -48,6 +51,18 @@ version = "0.1.0"
 [[package]]
 name = "coordinator"
 version = "0.1.0"
+dependencies = [
+ "ai_core",
+ "benchmark_engine",
+ "capability_registry",
+ "context",
+ "inference",
+ "memory",
+ "model_registry",
+ "model_router",
+ "provider_manager",
+ "resource_manager",
+]
 
 [[package]]
 name = "devices"
@@ -156,6 +171,7 @@ dependencies = [
 name = "model_router"
 version = "0.1.0"
 dependencies = [
+ "ai_core",
  "benchmark_engine",
  "model_registry",
 ]

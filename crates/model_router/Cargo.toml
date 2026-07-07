@@ -6,3 +6,4 @@ edition = "2024"
 [dependencies]
 benchmark_engine = { path = "../benchmark_engine" }
 model_registry = { path = "../model_registry" }
+ai_core = { path = "../ai_core" }

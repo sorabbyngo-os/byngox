@@ -1,3 +1,4 @@
+pub mod selection;
 pub mod backend;
 pub mod benchmark;
 pub mod capability;
@@ -23,3 +24,4 @@ pub use provider::*;
 pub use resources::*;
 pub use routing::*;
 pub use traits::*;
+pub use selection::*;

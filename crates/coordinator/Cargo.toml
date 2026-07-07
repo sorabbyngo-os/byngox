@@ -4,3 +4,18 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+ai_core = { path = "../ai_core" }
+
+capability_registry = { path = "../capability_registry" }
+model_registry = { path = "../model_registry" }
+
+benchmark_engine = { path = "../benchmark_engine" }
+resource_manager = { path = "../resource_manager" }
+
+model_router = { path = "../model_router" }
+provider_manager = { path = "../provider_manager" }
+
+memory = { path = "../memory" }
+context = { path = "../context" }
+
+inference = { path = "../inference" }

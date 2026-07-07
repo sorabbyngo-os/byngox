@@ -1,5 +1,9 @@
-#[derive(Clone, Debug, PartialEq, Eq, Hash)]
+use ai_core::Capability;
+
+#[derive(Clone, Debug)]
 pub struct CapabilityDefinition {
+
+    pub capability: Capability,
 
     pub id: String,
 

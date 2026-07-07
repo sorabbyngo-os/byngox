@@ -1,11 +1,22 @@
 pub mod coordinator;
+pub mod planner;
+pub mod executor;
+pub mod pipeline;
+pub mod state;
+pub mod task;
 pub mod request;
 pub mod response;
 pub mod execution_plan;
-pub mod selection;
+pub mod error;
 
 pub use coordinator::InferenceCoordinator;
+pub use planner::Planner;
+//pub use executor::Executor;
+//pub use pipeline::Pipeline;
+//pub use state::CoordinatorState;
+pub use task::*;
 pub use request::InferenceTask;
 pub use response::InferenceResult;
 pub use execution_plan::ExecutionPlan;
-pub use selection::ModelSelection;
+pub use error::CoordinatorError;
+pub use ai_core::ModelSelection;

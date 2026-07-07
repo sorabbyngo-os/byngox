@@ -23,19 +23,23 @@ impl InferenceCoordinator {
 
     ) -> ExecutionPlan {
 
-        let selection = ModelSelection {
+      let selection = ModelSelection {
+          provider: "local".into(),
+          model: format!("best-model-for-{}", task.capability),
 
-            provider: "local".into(),
-
-            model: format!("best-model-for-{}", task.capability),
-
-        };
-
+          local: true,
+          estimated_cost: 0.0,
+          latency: 0,
+      }; 
         ExecutionPlan {
+         selection,
 
-            selection,
+         capability: task.capability.clone(),
 
-        }
+         requires_memory: true,
+
+         requires_context: true,
+       }
 
     }
 

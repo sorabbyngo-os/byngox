@@ -103,12 +103,11 @@ impl InferenceEngine {
 
         //--------------------------------------------------
         // STEP 6
-        //--------------------------------------------------
-
-       let provider = self
-          .provider_manager
-          .provider(&selected.model.model)
-          .ok_or(InferenceError::ProviderNotFound)?;
+        //------------------------------------------------
+        let provider = self
+            .provider_manager
+            .provider(&selected.selection.provider)
+            .ok_or(InferenceError::ProviderNotFound)?;
 
         //--------------------------------------------------
         // STEP 7

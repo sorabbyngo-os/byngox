@@ -3,7 +3,6 @@ use crate::{
     ProviderType,
 };
 
-use model_registry::Model;
 
 pub struct ProviderManager {
     registry: ProviderRegistry,
@@ -20,10 +19,10 @@ impl ProviderManager {
         &mut self.registry
     }
 
-    pub fn provider(
-        &self,
-        model: &Model,
-    ) -> Option<&ProviderType> {
-        self.registry.get(&model.provider)
-    }
+   pub fn provider(
+       &self,
+       provider_name: &str,
+   ) -> Option<&ProviderType> {
+       self.registry.get(provider_name)
+ }
 }
