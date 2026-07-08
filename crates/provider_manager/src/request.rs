@@ -1,7 +1,12 @@
-#[derive(Clone, Debug)]
+use serde::Serialize;
 
-pub struct InferenceRequest {
+#[derive(Serialize)]
+pub struct OllamaRequest {
+
     pub model: String,
 
     pub prompt: String,
+
+    pub stream: bool,
+
 }

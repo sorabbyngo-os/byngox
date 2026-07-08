@@ -7,7 +7,7 @@ edition = "2024"
 model_registry = { path = "../model_registry" }
 benchmark_engine = { path = "../benchmark_engine" }
 context = { path = "../context" }
-reqwest = { version = "0.12", features = ["json"] }
+reqwest = { version = "0.12", features = ["json", "blocking"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 tokio = { version = "1", features = ["full"] }

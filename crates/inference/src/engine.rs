@@ -2,6 +2,7 @@ use context::{
     Message,
     Role,
 };
+use provider_manager::Provider;
 use crate::{InferenceError, InferenceRequest, InferenceResponse};
 use prompt_builder::PromptBuilder;
 use benchmark_engine::BenchmarkEngine;
@@ -152,11 +153,11 @@ impl InferenceEngine {
         // STEP 7
         //--------------------------------------------------
 
-        let response = format!(
-    	  "Provider {:?} executed:\n{}",
-    	  provider,
-   	  prompt,
-	);
+        let ollama = self.provider_manager.ollama();
+
+	let response = ollama
+    		.generate(&prompt)
+    		.map_err(|e| InferenceError::ExecutionFailed(e.to_string()))?;
         self.context.add(
     	     Message {
         	role: Role::Assistant,

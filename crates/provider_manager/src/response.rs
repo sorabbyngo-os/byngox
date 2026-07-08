@@ -1,5 +1,8 @@
-#[derive(Clone, Debug)]
+use serde::Deserialize;
 
-pub struct InferenceResponse {
-    pub text: String,
+#[derive(Deserialize)]
+pub struct OllamaResponse {
+
+    pub response: String,
+
 }

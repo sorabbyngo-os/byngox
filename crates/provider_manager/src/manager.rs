@@ -1,4 +1,5 @@
 use crate::{ProviderRegistry, ProviderType};
+use crate::OllamaProvider;
 
 pub struct ProviderManager {
     registry: ProviderRegistry,
@@ -17,5 +18,8 @@ impl ProviderManager {
 
     pub fn provider(&self, provider_name: &str) -> Option<&ProviderType> {
         self.registry.get(provider_name)
+    }
+    pub fn ollama(&self) -> OllamaProvider {
+    OllamaProvider::new()
     }
 }
