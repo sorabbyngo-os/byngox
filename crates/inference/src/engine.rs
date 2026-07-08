@@ -1,5 +1,9 @@
+use context::{
+    Message,
+    Role,
+};
 use crate::{InferenceError, InferenceRequest, InferenceResponse};
-
+use prompt_builder::PromptBuilder;
 use benchmark_engine::BenchmarkEngine;
 use capability_registry::CapabilityRegistry;
 use context::ContextManager;
@@ -25,6 +29,7 @@ pub struct InferenceEngine {
     memory: MemoryManager,
 
     context: ContextManager,
+    prompt_builder: PromptBuilder,
 }
 
 impl InferenceEngine {
@@ -45,6 +50,7 @@ impl InferenceEngine {
             memory: MemoryManager::new(),
 
             context: ContextManager::new(),
+	    prompt_builder: PromptBuilder::new(),
         }
     }
 
@@ -71,6 +77,7 @@ impl InferenceEngine {
 
              }
             );
+	    
 
             self.context.add(
              context::Message {
@@ -83,6 +90,12 @@ impl InferenceEngine {
     	 );
 
        }
+       self.context.add(
+           Message {
+        	role: Role::User,
+        	content: request.prompt.clone(),
+         }
+       );
 
  	self.context.add(
            context::Message {
@@ -93,8 +106,13 @@ impl InferenceEngine {
 
     	   }
 	);
+	let messages = self.context.window();
 
-        let context_window = self.context.window();
+        let prompt = self
+    	 	.prompt_builder
+    		.build(&messages);
+
+        //let context_window = self.context.window();
         //--------------------------------------------------
         // STEP 2
         //--------------------------------------------------
@@ -134,8 +152,17 @@ impl InferenceEngine {
         // STEP 7
         //--------------------------------------------------
 
-        let response = format!("Provider {:?} executed: {}", provider, request.prompt);
-
+        let response = format!(
+    	  "Provider {:?} executed:\n{}",
+    	  provider,
+   	  prompt,
+	);
+        self.context.add(
+    	     Message {
+        	role: Role::Assistant,
+        	content: response.clone(),
+    	    }
+	);
         //--------------------------------------------------
         // STEP 8
         //--------------------------------------------------

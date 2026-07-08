@@ -28,5 +28,6 @@ members = [
     "crates/storage",
     "crates/hal",
     "crates/kernel",
-    "crates/byngox-cli",
+    "crates/byngox-cli", 
+    "crates/prompt_builder",
 ]

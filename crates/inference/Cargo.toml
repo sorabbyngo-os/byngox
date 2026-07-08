@@ -15,3 +15,4 @@ model_router={path="../model_router"}
 provider_manager={path="../provider_manager"}
 resource_manager={path="../resource_manager"}
 ai_core = { path = "../ai_core" }
+prompt_builder = { path = "../prompt_builder" }
