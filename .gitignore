@@ -7,3 +7,17 @@ lancedb_data/
 __pycache__/
 *.pyc
 *.pyo
+
+# Rust
+/target/
+
+# Cargo
+Cargo.lock
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
