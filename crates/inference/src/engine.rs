@@ -1,3 +1,9 @@
+use tool_executor::{
+    ToolExecutor,
+    FilesystemTool,
+    ShellTool,
+    WebTool,
+};
 use crate::{InferenceError, InferenceRequest, InferenceResponse};
 use benchmark_engine::BenchmarkEngine;
 use capability_registry::CapabilityRegistry;
@@ -16,6 +22,7 @@ pub struct InferenceEngine {
     resource_manager: ResourceManager,
     router: ModelRouter,
     provider_manager: ProviderManager,
+    tool_executor: ToolExecutor,
     memory: MemoryManager,
     context: ContextManager,
     prompt_builder: PromptBuilder,
@@ -37,6 +44,21 @@ impl InferenceEngine {
             model_registry.register(model);
         }
 
+	let mut tool_executor = ToolExecutor::new();
+
+	tool_executor
+    		.registry_mut()
+    		.register(FilesystemTool::new());
+
+	tool_executor
+    		.registry_mut()
+    		.register(ShellTool::new());
+
+	tool_executor
+    		.registry_mut()
+    		.register(WebTool::new());        
+
+
         Self {
             capability_registry: CapabilityRegistry::new(),
             model_registry,
@@ -45,10 +67,55 @@ impl InferenceEngine {
             router: ModelRouter::new(),
             provider_manager,
             memory: MemoryManager::new(),
+	    tool_executor,
             context: ContextManager::new(),
             prompt_builder: PromptBuilder::new(),
         }
     }
+   
+    fn execute_tool(
+       &self,
+       tool: &str,
+       input: &str,
+    ) -> Result<String, InferenceError> {
+
+       let result = self
+          .tool_executor
+          .execute(tool, input)
+          .map_err(|e| {
+            	   InferenceError::ExecutionFailed(
+                	e.to_string()
+            	   )
+        	})?;
+
+    	Ok(result.output)
+    }
+
+    fn dispatch_tool(
+      &self,
+      prompt: &str,
+    ) -> Result<Option<String>, InferenceError> {
+
+      if let Some(command) = prompt.strip_prefix("shell:") {
+        return self
+            .execute_tool("shell", command.trim())
+            .map(Some);
+      }
+
+      if let Some(path) = prompt.strip_prefix("read:") {
+        return self
+            .execute_tool("filesystem", path.trim())
+            .map(Some);
+      }
+
+      if let Some(query) = prompt.strip_prefix("web:") {
+        return self
+            .execute_tool("web", query.trim())
+            .map(Some);
+      }
+
+      Ok(None)
+    }   
 
     pub fn execute(
         &mut self,
@@ -78,6 +145,20 @@ impl InferenceEngine {
         let messages = self.context.window();
 
         let prompt = self.prompt_builder.build(&messages);
+
+	let prompt = if let Some(tool_output) = self.dispatch_tool(&prompt)? {
+
+    		format!(
+        		"{}\n\nTool Output:\n{}",
+        		prompt,
+        		tool_output,
+    		)
+
+	} else {
+
+    		prompt
+
+	};
 
         let candidates = self.model_registry.models_for(capability);
         let ranked = self.benchmark_engine.rank(candidates);

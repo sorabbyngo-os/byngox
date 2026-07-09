@@ -12,7 +12,7 @@ __pycache__/
 /target/
 
 # Cargo
-Cargo.lock
+#Cargo.lock
 
 # IDE
 .vscode/

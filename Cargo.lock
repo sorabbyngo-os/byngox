@@ -553,6 +553,7 @@ dependencies = [
  "prompt_builder",
  "provider_manager",
  "resource_manager",
+ "tool_executor",
  "uuid",
 ]
 
