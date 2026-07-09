@@ -11,25 +11,14 @@ impl PromptCache {
         }
     }
 
-    pub fn store(
-        &mut self,
-        user: &str,
-        prompt: &str,
-        response: &str,
-    ) {
+    pub fn store(&mut self, user: &str, prompt: &str, response: &str) {
         self.entries
             .entry(user.to_string())
             .or_default()
             .push((prompt.to_string(), response.to_string()));
     }
 
-    pub fn recent(
-        &self,
-        user: &str,
-    ) -> Vec<(String, String)> {
-        self.entries
-            .get(user)
-            .cloned()
-            .unwrap_or_default()
+    pub fn recent(&self, user: &str) -> Vec<(String, String)> {
+        self.entries.get(user).cloned().unwrap_or_default()
     }
 }

@@ -1,25 +1,43 @@
-use crate::{ProviderRegistry, ProviderType};
-use crate::OllamaProvider;
+use ai_core::Model;
+
+use crate::Provider;
 
 pub struct ProviderManager {
-    registry: ProviderRegistry,
+    providers: Vec<Box<dyn Provider>>,
 }
 
 impl ProviderManager {
     pub fn new() -> Self {
         Self {
-            registry: ProviderRegistry::new(),
+            providers: Vec::new(),
         }
     }
 
-    pub fn registry_mut(&mut self) -> &mut ProviderRegistry {
-        &mut self.registry
+    pub fn register(&mut self, provider: Box<dyn Provider>) {
+        self.providers.push(provider);
     }
 
-    pub fn provider(&self, provider_name: &str) -> Option<&ProviderType> {
-        self.registry.get(provider_name)
+    pub fn discover_models(&self) -> Result<Vec<Model>, Box<dyn std::error::Error>> {
+        println!("Providers registered: {}", self.providers.len());
+
+        let mut models = Vec::new();
+
+        for (i, provider) in self.providers.iter().enumerate() {
+            println!("Querying provider {}", i);
+
+            let discovered = provider.discover_models()?;
+
+            println!("Provider returned {} models", discovered.len());
+
+            models.extend(discovered);
+        }
+
+        println!("Total discovered models: {}", models.len());
+
+        Ok(models)
     }
-    pub fn ollama(&self) -> OllamaProvider {
-    OllamaProvider::new()
+
+    pub fn providers(&self) -> &[Box<dyn Provider>] {
+        &self.providers
     }
 }

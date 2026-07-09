@@ -817,6 +817,7 @@ dependencies = [
 name = "provider_manager"
 version = "0.1.0"
 dependencies = [
+ "ai_core",
  "benchmark_engine",
  "context",
  "model_registry",

@@ -1,19 +1,9 @@
-#[derive(Clone, Debug)]
+use std::error::Error;
 
-pub enum ProviderType {
-    Ollama,
+use ai_core::Model;
 
-    LlamaCpp,
+pub trait Provider: Send + Sync {
+    fn discover_models(&self) -> Result<Vec<Model>, Box<dyn Error>>;
 
-    Vllm,
-
-    Onnx,
-
-    OpenAI,
-
-    Anthropic,
-
-    Gemini,
-
-    Custom(String),
+    fn generate(&self, model: &Model, prompt: &str) -> Result<String, Box<dyn Error>>;
 }

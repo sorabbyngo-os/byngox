@@ -1,19 +1,20 @@
-use ai_core::ModelSelection;
+use ai_core::{Model, ModelSelection};
 use benchmark_engine::ModelScore;
 
 pub struct RoutingResponse {
+    pub model: Model,
     pub selection: ModelSelection,
 }
-
 pub struct ModelRouter;
 
 impl ModelRouter {
     pub fn new() -> Self {
         Self
     }
-
     pub fn select(&self, candidates: Vec<ModelScore>) -> Option<RoutingResponse> {
         candidates.first().map(|candidate| RoutingResponse {
+            model: candidate.model.clone(),
+
             selection: ModelSelection {
                 provider: candidate.model.provider.clone(),
 
