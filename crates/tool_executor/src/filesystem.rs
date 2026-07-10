@@ -28,12 +28,12 @@ impl Tool for FilesystemTool {
         input: &str,
     ) -> Result<ToolResult, ToolError> {
 
-        let contents = fs::read_to_string(input)
+        let file_contents = fs::read_to_string(input)
             .map_err(|e| ToolError::ExecutionFailed(e.to_string()))?;
 
         Ok(ToolResult {
             success: true,
-            output: contents,
+            output:file_contents,
         })
     }
 }

@@ -1,35 +1,52 @@
 use std::collections::HashMap;
-use std::sync::Arc;
 
-use crate::Tool;
+use crate::{
+    ShellTool,
+    FilesystemTool,
+    WebTool,
+    Tool,
+};
 
 pub struct ToolRegistry {
-    tools: HashMap<String, Arc<dyn Tool>>,
+    tools: HashMap<String, Box<dyn Tool>>,
 }
 
 impl ToolRegistry {
     pub fn new() -> Self {
-        Self {
+        let mut registry = Self {
             tools: HashMap::new(),
-        }
+        };
+
+        registry.register(
+            "shell",
+            Box::new(ShellTool::new()),
+        );
+
+	registry.register(
+    		"web",
+    	  Box::new(WebTool::new()),
+	);
+
+	registry.register(
+    		"filesystem",
+    	  Box::new(FilesystemTool::new()),
+	);
+
+        registry
     }
 
-    pub fn register<T>(&mut self, tool: T)
-    where
-        T: Tool + 'static,
-    {
-        self.tools
-            .insert(tool.name().to_string(), Arc::new(tool));
+    pub fn register(
+        &mut self,
+        name: impl Into<String>,
+        tool: Box<dyn Tool>,
+    ) {
+        self.tools.insert(name.into(), tool);
     }
 
     pub fn get(
         &self,
         name: &str,
-    ) -> Option<Arc<dyn Tool>> {
-        self.tools.get(name).cloned()
-    }
-
-    pub fn list(&self) -> Vec<String> {
-        self.tools.keys().cloned().collect()
+    ) -> Option<&dyn Tool> {
+        self.tools.get(name).map(|t| t.as_ref())
     }
 }

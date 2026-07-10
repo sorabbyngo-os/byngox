@@ -1,14 +1,20 @@
+use reqwest::blocking::Client;
+
 use crate::{
     Tool,
     ToolError,
     ToolResult,
 };
 
-pub struct WebTool;
+pub struct WebTool {
+    client: Client,
+}
 
 impl WebTool {
     pub fn new() -> Self {
-        Self
+        Self {
+            client: Client::new(),
+        }
     }
 }
 
@@ -18,19 +24,27 @@ impl Tool for WebTool {
     }
 
     fn description(&self) -> &'static str {
-        "Placeholder web tool"
+        "Downloads text from a URL."
     }
 
     fn execute(
         &self,
         input: &str,
     ) -> Result<ToolResult, ToolError> {
+
+        let response = self
+            .client
+            .get(input)
+            .send()
+            .map_err(|e| ToolError::ExecutionFailed(e.to_string()))?;
+
+        let body = response
+            .text()
+            .map_err(|e| ToolError::ExecutionFailed(e.to_string()))?;
+
         Ok(ToolResult {
             success: true,
-            output: format!(
-                "Web tool not yet implemented. Request: {}",
-                input
-            ),
+            output: body,
         })
     }
 }

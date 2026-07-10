@@ -20,7 +20,7 @@ impl Tool for ShellTool {
     }
 
     fn description(&self) -> &'static str {
-        "Execute shell commands"
+        "Executes shell commands."
     }
 
     fn execute(

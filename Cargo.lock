@@ -1273,6 +1273,9 @@ dependencies = [
 [[package]]
 name = "tool_executor"
 version = "0.1.0"
+dependencies = [
+ "reqwest",
+]
 
 [[package]]
 name = "tower"

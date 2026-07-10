@@ -15,23 +15,21 @@ impl ToolExecutor {
         }
     }
 
-    pub fn registry(&self) -> &ToolRegistry {
-        &self.registry
-    }
-
-    pub fn registry_mut(&mut self) -> &mut ToolRegistry {
-        &mut self.registry
-    }
-
     pub fn execute(
         &self,
-        tool: &str,
+        tool_name: &str,
         input: &str,
     ) -> Result<ToolResult, ToolError> {
+
         let tool = self
             .registry
-            .get(tool)
-            .ok_or_else(|| ToolError::ToolNotFound(tool.to_string()))?;
+            .get(tool_name)
+	    .ok_or(
+    		ToolError::ToolNotFound(
+            	  tool_name.to_string(),
+    	        ),
+	    )?;	    
+
 
         tool.execute(input)
     }
