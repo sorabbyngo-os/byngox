@@ -1,3 +1,7 @@
+use agent_planner::{
+    AgentPlanner,
+    AgentAction,
+};
 use tool_executor::{
     ToolExecutor,
     FilesystemTool,
@@ -23,6 +27,7 @@ pub struct InferenceEngine {
     router: ModelRouter,
     provider_manager: ProviderManager,
     tool_executor: ToolExecutor,
+    planner: AgentPlanner,
     memory: MemoryManager,
     context: ContextManager,
     prompt_builder: PromptBuilder,
@@ -68,6 +73,7 @@ impl InferenceEngine {
             provider_manager,
             memory: MemoryManager::new(),
 	    tool_executor,
+	    planner: AgentPlanner::new(),
             context: ContextManager::new(),
             prompt_builder: PromptBuilder::new(),
         }
@@ -122,7 +128,7 @@ impl InferenceEngine {
         request: InferenceRequest,
     ) -> Result<InferenceResponse, InferenceError> {
         let capability = &request.capability;
-
+	let plan = self.planner.create_plan(&request.prompt);
         let history = self.memory.recent(&request.user_id);
 
         for (prompt, response) in history {
@@ -144,7 +150,31 @@ impl InferenceEngine {
 
         let messages = self.context.window();
 
-        let prompt = self.prompt_builder.build(&messages);
+	let mut prompt = self
+    		.prompt_builder
+    		.build(&messages);
+
+	for step in &plan.steps {
+
+    		match step.action {
+
+        	  AgentAction::UseTool => {
+
+            	    let output = self.execute_tool(
+                	&step.target,
+                	&step.input,
+            	    )?;
+
+            	    prompt.push_str("\n\nTool Output:\n");
+                    prompt.push_str(&output);
+        	  }
+
+        	  AgentAction::Respond => {}
+
+        	  AgentAction::Finish => break,
+    	       }
+	}	
+
 
 	let prompt = if let Some(tool_output) = self.dispatch_tool(&prompt)? {
 

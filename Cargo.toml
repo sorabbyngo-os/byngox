@@ -20,6 +20,7 @@ members = [
     "crates/ai_core",
     "crates/audio",
     "crates/vision",
+    "crates/agent_planner",
     "crates/motion",
     "crates/security",
     "crates/networking",
@@ -30,5 +31,5 @@ members = [
     "crates/kernel",
     "crates/tool_executor",
     "crates/byngox-cli", 
-    "crates/prompt_builder",
+    "crates/prompt_builder", "crates/agent_planner",
 ]

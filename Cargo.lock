@@ -3,6 +3,10 @@
 version = 4
 
 [[package]]
+name = "agent_planner"
+version = "0.1.0"
+
+[[package]]
 name = "ai_core"
 version = "0.1.0"
 
@@ -543,6 +547,7 @@ dependencies = [
 name = "inference"
 version = "0.1.0"
 dependencies = [
+ "agent_planner",
  "ai_core",
  "benchmark_engine",
  "capability_registry",
