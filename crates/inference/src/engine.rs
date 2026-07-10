@@ -2,12 +2,13 @@ use agent_planner::{
     AgentPlanner,
     AgentAction,
 };
-use tool_executor::{
-    ToolExecutor,
-    FilesystemTool,
-    ShellTool,
-    WebTool,
-};
+//use tool_executor::{
+  //  ToolExecutor,
+    //FilesystemTool,
+   // ShellTool,
+   // WebTool,
+//};
+use tool_executor::ToolExecutor;
 use crate::{InferenceError, InferenceRequest, InferenceResponse};
 use benchmark_engine::BenchmarkEngine;
 use capability_registry::CapabilityRegistry;
@@ -48,20 +49,22 @@ impl InferenceEngine {
         for model in discovered {
             model_registry.register(model);
         }
+	
+	let tool_executor = ToolExecutor::new();
 
-	let mut tool_executor = ToolExecutor::new();
+//	let mut tool_executor = ToolExecutor::new();
 
-	tool_executor
-    		.registry_mut()
-    		.register(FilesystemTool::new());
+//	tool_executor
+    //		.registry_mut()
+  //  		.register(FilesystemTool::new());
 
-	tool_executor
-    		.registry_mut()
-    		.register(ShellTool::new());
+//	tool_executor
+    //		.registry_mut()
+  //  		.register(ShellTool::new());
 
-	tool_executor
-    		.registry_mut()
-    		.register(WebTool::new());        
+//	tool_executor
+  //  		.registry_mut()
+//    		.register(WebTool::new());        
 
 
         Self {
@@ -97,31 +100,31 @@ impl InferenceEngine {
     	Ok(result.output)
     }
 
-    fn dispatch_tool(
-      &self,
-      prompt: &str,
-    ) -> Result<Option<String>, InferenceError> {
+    //fn dispatch_tool(
+    //  &self,
+    //  prompt: &str,
+    //) -> Result<Option<String>, InferenceError> {
 
-      if let Some(command) = prompt.strip_prefix("shell:") {
-        return self
-            .execute_tool("shell", command.trim())
-            .map(Some);
-      }
+    //  if let Some(command) = prompt.strip_prefix("shell:") {
+      //  return self
+        //    .execute_tool("shell", command.trim())
+          //  .map(Some);
+     // }
 
-      if let Some(path) = prompt.strip_prefix("read:") {
-        return self
-            .execute_tool("filesystem", path.trim())
-            .map(Some);
-      }
+     // if let Some(path) = prompt.strip_prefix("read:") {
+      //  return self
+        //    .execute_tool("filesystem", path.trim())
+          //  .map(Some);
+     // }
 
-      if let Some(query) = prompt.strip_prefix("web:") {
-        return self
-            .execute_tool("web", query.trim())
-            .map(Some);
-      }
+     // if let Some(query) = prompt.strip_prefix("web:") {
+      //  return self
+        //    .execute_tool("web", query.trim())
+          //  .map(Some);
+     // }
 
-      Ok(None)
-    }   
+      //Ok(None)
+   // }   
 
     pub fn execute(
         &mut self,
@@ -154,6 +157,25 @@ impl InferenceEngine {
     		.prompt_builder
     		.build(&messages);
 
+	let memories = self.memory.search_memory(
+ 	   &request.user_id,
+   	   &request.prompt,
+	);
+
+	if !memories.is_empty() {
+
+          prompt.push_str("\n\nRelevant Memories:\n");
+
+          for memory in memories {
+
+        	prompt.push_str("- ");
+
+        	prompt.push_str(&memory);
+
+        	prompt.push('\n');
+    	  }
+	}
+
 	for step in &plan.steps {
 
     		match step.action {
@@ -176,19 +198,39 @@ impl InferenceEngine {
 	}	
 
 
-	let prompt = if let Some(tool_output) = self.dispatch_tool(&prompt)? {
+	//let prompt = if let Some(tool_output) = self.dispatch_tool(&prompt)? {
 
-    		format!(
-        		"{}\n\nTool Output:\n{}",
-        		prompt,
-        		tool_output,
-    		)
+    	//	format!(
+        //		"{}\n\nTool Output:\n{}",
+        //		prompt,
+        //		tool_output,
+    	//	)
+	//} else {
+    	//	prompt
 
-	} else {
+//	};
+	
+	for step in &plan.steps {
 
-    		prompt
+ 	   match step.action {
 
-	};
+        	AgentAction::UseTool => {
+
+            	  let output = self.execute_tool(
+               		 &step.target,
+               		 &step.input,
+            	  )?;
+
+            	  prompt.push_str("\n\nTool Output:\n");
+            	  prompt.push_str(&output);
+        	}
+
+        	AgentAction::Respond => {}
+
+        	AgentAction::Finish => break,
+    	  }
+	}
+
 
         let candidates = self.model_registry.models_for(capability);
         let ranked = self.benchmark_engine.rank(candidates);
@@ -211,6 +253,15 @@ impl InferenceEngine {
 
         self.memory
             .store_interaction(&request.user_id, &request.prompt, &response);
+	self.memory.store_memory(
+    	  &request.user_id,
+    	  format!(
+        	"User: {}\nAssistant: {}",
+        	request.prompt,
+        	response
+    	  ),
+	);
+
 
         Ok(InferenceResponse {
             model: selected.name().to_string(),

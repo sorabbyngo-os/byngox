@@ -12,6 +12,20 @@ impl AgentPlanner {
         Self
     }
 
+    fn add_tool_step(
+    	plan: &mut ExecutionPlan,
+    	tool: &str,
+    	input: &str,
+    ) {
+       plan.add_step(
+        PlanStep {
+            action: AgentAction::UseTool,
+            target: tool.to_string(),
+            input: input.trim().to_string(),
+        }
+      );
+    }
+
     pub fn create_plan(
         &self,
         prompt: &str,
@@ -21,13 +35,11 @@ impl AgentPlanner {
 
         if let Some(command) = prompt.strip_prefix("shell:") {
 
-            plan.add_step(
-                PlanStep {
-                    action: AgentAction::UseTool,
-                    target: "shell".to_string(),
-                    input: command.trim().to_string(),
-                }
-            );
+	    Self::add_tool_step(
+    		&mut plan,
+    		"shell",
+    		command,
+	    );
 
             plan.add_step(
                 PlanStep {
@@ -42,13 +54,11 @@ impl AgentPlanner {
 
         if let Some(path) = prompt.strip_prefix("read:") {
 
-            plan.add_step(
-                PlanStep {
-                    action: AgentAction::UseTool,
-                    target: "filesystem".to_string(),
-                    input: path.trim().to_string(),
-                }
-            );
+	    Self::add_tool_step(
+    		&mut plan,
+    		"filesystem",
+    		path,
+	    );
 
             plan.add_step(
                 PlanStep {
@@ -63,13 +73,11 @@ impl AgentPlanner {
 
         if let Some(query) = prompt.strip_prefix("web:") {
 
-            plan.add_step(
-                PlanStep {
-                    action: AgentAction::UseTool,
-                    target: "web".to_string(),
-                    input: query.trim().to_string(),
-                }
-            );
+	    Self::add_tool_step(
+    		&mut plan,
+    		"web",
+    		query,
+	    );
 
             plan.add_step(
                 PlanStep {
@@ -81,6 +89,26 @@ impl AgentPlanner {
 
             return plan;
         }
+
+	if prompt.to_lowercase().starts_with("read ") {
+    	 let path = prompt[5..].trim();
+
+    	 Self::add_tool_step(
+         	&mut plan,
+        	"filesystem",
+        	path,
+         );
+
+   	 plan.add_step(
+             PlanStep {
+            	action: AgentAction::Respond,
+            	target: String::new(),
+            	input: String::new(),
+            }
+    	);
+
+    	return plan;
+       }
 
         plan.add_step(
             PlanStep {
