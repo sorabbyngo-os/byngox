@@ -31,5 +31,9 @@ members = [
     "crates/kernel",
     "crates/tool_executor",
     "crates/byngox-cli", 
-    "crates/prompt_builder", "crates/agent_planner",
+    "crates/prompt_builder",
+    "crates/agent_planner", 
+    "crates/task_runtime", 
+    "crates/reasoning_engine",
+    "crates/reasoning_engine",
 ]

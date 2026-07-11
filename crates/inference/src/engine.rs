@@ -1,14 +1,15 @@
-use agent_planner::{
-    AgentPlanner,
-    AgentAction,
-};
+//use tool_executor::{
+  //  FilesystemTool,
+    //ShellTool,
+    //WebTool,
+//};
 //use tool_executor::{
   //  ToolExecutor,
     //FilesystemTool,
    // ShellTool,
    // WebTool,
 //};
-use tool_executor::ToolExecutor;
+use task_runtime::TaskRuntime;
 use crate::{InferenceError, InferenceRequest, InferenceResponse};
 use benchmark_engine::BenchmarkEngine;
 use capability_registry::CapabilityRegistry;
@@ -19,6 +20,7 @@ use model_router::ModelRouter;
 use prompt_builder::PromptBuilder;
 use provider_manager::{OllamaProvider, ProviderManager};
 use resource_manager::ResourceManager;
+use agent_planner::AgentPlanner;
 
 pub struct InferenceEngine {
     capability_registry: CapabilityRegistry,
@@ -27,8 +29,8 @@ pub struct InferenceEngine {
     resource_manager: ResourceManager,
     router: ModelRouter,
     provider_manager: ProviderManager,
-    tool_executor: ToolExecutor,
     planner: AgentPlanner,
+    task_runtime: TaskRuntime,
     memory: MemoryManager,
     context: ContextManager,
     prompt_builder: PromptBuilder,
@@ -50,8 +52,8 @@ impl InferenceEngine {
             model_registry.register(model);
         }
 	
-	let tool_executor = ToolExecutor::new();
-
+	//let tool_executor = ToolExecutor::new();
+	let task_runtime = TaskRuntime::new();
 //	let mut tool_executor = ToolExecutor::new();
 
 //	tool_executor
@@ -75,30 +77,30 @@ impl InferenceEngine {
             router: ModelRouter::new(),
             provider_manager,
             memory: MemoryManager::new(),
-	    tool_executor,
+	    task_runtime,
 	    planner: AgentPlanner::new(),
             context: ContextManager::new(),
             prompt_builder: PromptBuilder::new(),
         }
     }
    
-    fn execute_tool(
-       &self,
-       tool: &str,
-       input: &str,
-    ) -> Result<String, InferenceError> {
+ //   fn execute_tool(
+   //    &self,
+     //  tool: &str,
+       //input: &str,
+   // ) -> Result<String, InferenceError> {
 
-       let result = self
-          .tool_executor
-          .execute(tool, input)
-          .map_err(|e| {
-            	   InferenceError::ExecutionFailed(
-                	e.to_string()
-            	   )
-        	})?;
-
-    	Ok(result.output)
-    }
+     //  let result = self
+       //   .tool_executor
+        //  .execute(tool, input)
+         // .map_err(|e| {
+           // 	   InferenceError::ExecutionFailed(
+             //   	e.to_string()
+            //	   )
+        //	})?;
+//
+  //  	Ok(result.output)
+  //  }
 
     //fn dispatch_tool(
     //  &self,
@@ -176,60 +178,88 @@ impl InferenceEngine {
     	  }
 	}
 
-	for step in &plan.steps {
+//	for step in &plan.steps {
+//
+  //  		match step.action {
+//
+  //      	  AgentAction::UseTool => {
+//
+        //    	    let output = self.execute_tool(
+      //          	&step.target,
+    //            	&step.input,
+  //          	    )?;
+//
+      //      	    prompt.push_str("\n\nTool Output:\n");
+    //                prompt.push_str(&output);
+  //      	  }
+//
+  //      	  AgentAction::Respond => {}
+//
+  //      	  AgentAction::Finish => break,
+    //	       }
+//	}	
 
-    		match step.action {
+	let runtime_result = self
+ 	   .task_runtime
+    	   .execute(plan)
+    	   .map_err(|e| {
+        	InferenceError::ExecutionFailed(e.to_string())
+    	  })?;
 
-        	  AgentAction::UseTool => {
+	if runtime_result.success {
 
-            	    let output = self.execute_tool(
-                	&step.target,
-                	&step.input,
-            	    )?;
+    		prompt.push_str("\n\nTool Output:\n");
 
-            	    prompt.push_str("\n\nTool Output:\n");
-                    prompt.push_str(&output);
-        	  }
-
-        	  AgentAction::Respond => {}
-
-        	  AgentAction::Finish => break,
-    	       }
-	}	
+    		prompt.push_str(&runtime_result.output);
+	}
 
 
 	//let prompt = if let Some(tool_output) = self.dispatch_tool(&prompt)? {
 
     	//	format!(
         //		"{}\n\nTool Output:\n{}",
-        //		prompt,
+      //		prompt,
         //		tool_output,
     	//	)
 	//} else {
     	//	prompt
 
 //	};
+//	
+//	for step in &plan.steps {
+//
+ //	   match step.action {
+//
+  //      	AgentAction::UseTool => {
+//
+    //        	  let output = self.execute_tool(
+  //             		 &step.target,
+      //         		 &step.input,
+        //    	  )?;
 	
-	for step in &plan.steps {
+//	let runtime_result = self
+  //  	 .task_runtime
+    //	 .execute(plan)
+    //	 .map_err(|e| {
+      //  	InferenceError::ExecutionFailed(e.to_string())
+    //	})?;
 
- 	   match step.action {
+//	if runtime_result.success {
+//
+  //  	prompt.push_str("\n\nTool Output:\n");
 
-        	AgentAction::UseTool => {
-
-            	  let output = self.execute_tool(
-               		 &step.target,
-               		 &step.input,
-            	  )?;
-
-            	  prompt.push_str("\n\nTool Output:\n");
-            	  prompt.push_str(&output);
-        	}
-
-        	AgentAction::Respond => {}
-
-        	AgentAction::Finish => break,
-    	  }
-	}
+    //	prompt.push_str(&runtime_result.output);
+//	}
+//
+    //        	  prompt.push_str("\n\nTool Output:\n");
+  //          	  prompt.push_str(&output);
+      //  	}
+//
+  //      	AgentAction::Respond => {}
+//
+  //      	AgentAction::Finish => break,
+    //	    }
+//	  }
 
 
         let candidates = self.model_registry.models_for(capability);
@@ -268,4 +298,5 @@ impl InferenceEngine {
             output: response,
         })
     }
+
 }

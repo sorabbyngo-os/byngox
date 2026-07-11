@@ -5,7 +5,7 @@ edition = "2024"
 
 [dependencies]
 uuid = { version = "1", features = ["v4"] }
-
+task_runtime = { path = "../task_runtime" }
 benchmark_engine={path="../benchmark_engine"}
 capability_registry={path="../capability_registry"}
 context={path="../context"}

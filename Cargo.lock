@@ -558,6 +558,7 @@ dependencies = [
  "prompt_builder",
  "provider_manager",
  "resource_manager",
+ "task_runtime",
  "tool_executor",
  "uuid",
 ]
@@ -847,6 +848,10 @@ name = "r-efi"
 version = "6.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f8dcc9c7d52a811697d2151c701e0d08956f92b0e24136cf4cf27b57a6a0d9bf"
+
+[[package]]
+name = "reasoning_engine"
+version = "0.1.0"
 
 [[package]]
 name = "redox_syscall"
@@ -1184,6 +1189,14 @@ checksum = "8e1d1b10ced5ca923a1fcb8d03e96b8d3268065d724548c0211415ff6ac6bac4"
 dependencies = [
  "core-foundation-sys",
  "libc",
+]
+
+[[package]]
+name = "task_runtime"
+version = "0.1.0"
+dependencies = [
+ "agent_planner",
+ "tool_executor",
 ]
 
 [[package]]
