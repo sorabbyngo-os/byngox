@@ -1,21 +1,8 @@
-use agent_planner::{
-    AgentAction,
-    ExecutionPlan,
-};
+use agent_planner::{AgentAction, ExecutionPlan};
 
-use tool_executor::{
-    ToolError,
-    ToolExecutor,
-};
+use tool_executor::{ToolError, ToolExecutor};
 
-use crate::{
-    ExecutionState,
-    ProgressTracker,
-    RunningTask,
-    TaskResult,
-    TaskScheduler,
-    TaskStatus,
-};
+use crate::{ExecutionState, ProgressTracker, RunningTask, TaskResult, TaskScheduler, TaskStatus};
 
 pub struct TaskRuntime {
     executor: ToolExecutor,
@@ -30,40 +17,26 @@ impl TaskRuntime {
         }
     }
 
-    pub fn execute(
-        &self,
-        plan: ExecutionPlan,
-    ) -> Result<TaskResult, ToolError> {
-
+    pub fn execute(&self, plan: ExecutionPlan) -> Result<TaskResult, ToolError> {
         // Schedule the execution plan
         let scheduled_plan = self.scheduler.schedule(plan);
 
         // Create runtime state
-        let mut state = ExecutionState::new(
-            RunningTask::new(scheduled_plan),
-        );
+        let mut state = ExecutionState::new(RunningTask::new(scheduled_plan));
 
         state.set_status(TaskStatus::Running);
 
         // Track execution progress
-        let mut progress = ProgressTracker::new(
-            state.task.plan.steps.len(),
-        );
+        let mut progress = ProgressTracker::new(state.task.plan.steps.len());
 
         let mut output = String::new();
 
         while !state.finished() {
-
             let step = &state.task.plan.steps[state.current_step()];
 
             match step.action {
-
                 AgentAction::UseTool => {
-
-                    let result = self.executor.execute(
-                        &step.target,
-                        &step.input,
-                    )?;
+                    let result = self.executor.execute(&step.target, &step.input)?;
 
                     output.push_str(&result.output);
                     output.push('\n');

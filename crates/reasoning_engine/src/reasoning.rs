@@ -1,11 +1,6 @@
 use crate::{
-    IntentAnalyzer,
-    Verifier,
-    ReasoningPlanner,
-    ReasoningResult,
-    ReflectionEngine,
-    StrategySelector,
-    TaskDecomposer,
+    IntentAnalyzer, ReasoningPlanner, ReasoningResult, ReflectionEngine, StrategySelector,
+    TaskDecomposer, Verifier,
 };
 
 pub struct ReasoningEngine {
@@ -23,15 +18,11 @@ impl ReasoningEngine {
             decomposer: TaskDecomposer::new(),
             planner: ReasoningPlanner::new(),
             reflection: ReflectionEngine::new(),
-	    verifier: Verifier::new(),
+            verifier: Verifier::new(),
         }
     }
 
-    pub fn reason(
-        &self,
-        prompt: &str,
-    ) -> ReasoningResult {
-
+    pub fn reason(&self, prompt: &str) -> ReasoningResult {
         let intent = self.analyzer.analyze(prompt);
 
         let strategy = StrategySelector::select(&intent);
@@ -41,9 +32,9 @@ impl ReasoningEngine {
         let plan = self.planner.create_plan(goals.clone());
 
         let reflection = self.reflection.reflect(&plan);
-	let verification = self.verifier.verify(&plan);
+        let verification = self.verifier.verify(&plan);
         let _ = reflection;
-	let _ = verification;
+        let _ = verification;
         ReasoningResult {
             intent,
             strategy,

@@ -9,22 +9,15 @@ pub struct VerificationResult {
 pub struct Verifier;
 
 impl Verifier {
-
     pub fn new() -> Self {
         Self
     }
 
-    pub fn verify(
-        &self,
-        plan: &ReasoningPlan,
-    ) -> VerificationResult {
-
+    pub fn verify(&self, plan: &ReasoningPlan) -> VerificationResult {
         let mut errors = Vec::new();
 
         if plan.goals.is_empty() {
-            errors.push(
-                "Execution plan contains no goals.".to_string(),
-            );
+            errors.push("Execution plan contains no goals.".to_string());
         }
 
         VerificationResult {

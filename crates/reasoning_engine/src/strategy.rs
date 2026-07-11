@@ -1,32 +1,19 @@
-use crate::{
-    Intent,
-    ReasoningStrategy,
-};
+use crate::{Intent, ReasoningStrategy};
 
 pub struct StrategySelector;
 
 impl StrategySelector {
-
-    pub fn select(
-        intent: &Intent,
-    ) -> ReasoningStrategy {
-
+    pub fn select(intent: &Intent) -> ReasoningStrategy {
         match intent {
+            Intent::Conversation => ReasoningStrategy::DirectAnswer,
 
-            Intent::Conversation =>
-                ReasoningStrategy::DirectAnswer,
+            Intent::Question => ReasoningStrategy::DirectAnswer,
 
-            Intent::Question =>
-                ReasoningStrategy::DirectAnswer,
+            Intent::ToolUse => ReasoningStrategy::ToolExecution,
 
-            Intent::ToolUse =>
-                ReasoningStrategy::ToolExecution,
+            Intent::MultiStepTask => ReasoningStrategy::Planning,
 
-            Intent::MultiStepTask =>
-                ReasoningStrategy::Planning,
-
-            Intent::Unknown =>
-                ReasoningStrategy::Reflection,
+            Intent::Unknown => ReasoningStrategy::Reflection,
         }
     }
 }

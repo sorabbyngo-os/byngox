@@ -8,18 +8,11 @@ pub struct ReasoningPlan {
 pub struct ReasoningPlanner;
 
 impl ReasoningPlanner {
-
     pub fn new() -> Self {
         Self
     }
 
-    pub fn create_plan(
-        &self,
-        goals: Vec<Goal>,
-    ) -> ReasoningPlan {
-
-        ReasoningPlan {
-            goals,
-        }
+    pub fn create_plan(&self, goals: Vec<Goal>) -> ReasoningPlan {
+        ReasoningPlan { goals }
     }
 }

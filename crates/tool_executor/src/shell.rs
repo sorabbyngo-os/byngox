@@ -1,10 +1,6 @@
 use std::process::Command;
 
-use crate::{
-    Tool,
-    ToolError,
-    ToolResult,
-};
+use crate::{Tool, ToolError, ToolResult};
 
 pub struct ShellTool;
 
@@ -23,11 +19,7 @@ impl Tool for ShellTool {
         "Executes shell commands."
     }
 
-    fn execute(
-        &self,
-        input: &str,
-    ) -> Result<ToolResult, ToolError> {
-
+    fn execute(&self, input: &str) -> Result<ToolResult, ToolError> {
         let output = Command::new("sh")
             .arg("-c")
             .arg(input)

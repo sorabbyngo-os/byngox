@@ -1,25 +1,16 @@
-use crate::{
-    Intent,
-};
+use crate::Intent;
 
 pub struct IntentAnalyzer;
 
 impl IntentAnalyzer {
-
     pub fn new() -> Self {
         Self
     }
 
-    pub fn analyze(
-        &self,
-        prompt: &str,
-    ) -> Intent {
-
+    pub fn analyze(&self, prompt: &str) -> Intent {
         let prompt = prompt.trim().to_lowercase();
 
-        if prompt.starts_with("shell:")
-            || prompt.starts_with("read:")
-            || prompt.starts_with("web:")
+        if prompt.starts_with("shell:") || prompt.starts_with("read:") || prompt.starts_with("web:")
         {
             return Intent::ToolUse;
         }

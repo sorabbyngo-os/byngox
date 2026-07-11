@@ -1,3 +1,6 @@
+use reasoning_engine::ReasoningResult;
+
+use crate::GoalTranslator;
 use crate::{AgentAction, ExecutionPlan, PlanBuilder};
 
 pub struct AgentPlanner;
@@ -37,5 +40,8 @@ impl AgentPlanner {
         builder.add_step(AgentAction::Respond, "", "");
 
         builder.build()
+    }
+    pub fn create_plan_from_reasoning(&self, reasoning: &ReasoningResult) -> ExecutionPlan {
+        GoalTranslator::new().translate(&reasoning.goals)
     }
 }

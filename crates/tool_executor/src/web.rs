@@ -1,10 +1,6 @@
 use reqwest::blocking::Client;
 
-use crate::{
-    Tool,
-    ToolError,
-    ToolResult,
-};
+use crate::{Tool, ToolError, ToolResult};
 
 pub struct WebTool {
     client: Client,
@@ -27,11 +23,7 @@ impl Tool for WebTool {
         "Downloads text from a URL."
     }
 
-    fn execute(
-        &self,
-        input: &str,
-    ) -> Result<ToolResult, ToolError> {
-
+    fn execute(&self, input: &str) -> Result<ToolResult, ToolError> {
         let response = self
             .client
             .get(input)

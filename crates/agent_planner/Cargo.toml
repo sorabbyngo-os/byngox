@@ -6,4 +6,4 @@ edition = "2024"
 [dependencies]
 serde = { workspace = true, features = ["derive"] }
 serde_json.workspace = true
-
+reasoning_engine = { path = "../reasoning_engine" }

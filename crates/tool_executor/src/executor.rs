@@ -1,8 +1,4 @@
-use crate::{
-    ToolError,
-    ToolRegistry,
-    ToolResult,
-};
+use crate::{ToolError, ToolRegistry, ToolResult};
 
 pub struct ToolExecutor {
     registry: ToolRegistry,
@@ -15,21 +11,11 @@ impl ToolExecutor {
         }
     }
 
-    pub fn execute(
-        &self,
-        tool_name: &str,
-        input: &str,
-    ) -> Result<ToolResult, ToolError> {
-
+    pub fn execute(&self, tool_name: &str, input: &str) -> Result<ToolResult, ToolError> {
         let tool = self
             .registry
             .get(tool_name)
-	    .ok_or(
-    		ToolError::ToolNotFound(
-            	  tool_name.to_string(),
-    	        ),
-	    )?;	    
-
+            .ok_or(ToolError::ToolNotFound(tool_name.to_string()))?;
 
         tool.execute(input)
     }

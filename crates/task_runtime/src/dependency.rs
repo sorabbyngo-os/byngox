@@ -7,11 +7,7 @@ impl DependencyResolver {
         Self
     }
 
-    pub fn resolve(
-        &self,
-        plan: ExecutionPlan,
-    ) -> ExecutionPlan {
-
+    pub fn resolve(&self, plan: ExecutionPlan) -> ExecutionPlan {
         // Future:
         // • DAG construction
         // • dependency validation

@@ -12,25 +12,11 @@ impl MemoryStore {
         }
     }
 
-    pub fn store(
-        &mut self,
-        user: &str,
-        memory: String,
-    ) {
-        self.data
-            .entry(user.to_string())
-            .or_default()
-            .push(memory);
+    pub fn store(&mut self, user: &str, memory: String) {
+        self.data.entry(user.to_string()).or_default().push(memory);
     }
 
-    pub fn retrieve(
-        &self,
-        user: &str,
-    ) -> Vec<String> {
-        self.data
-            .get(user)
-            .cloned()
-            .unwrap_or_default()
+    pub fn retrieve(&self, user: &str) -> Vec<String> {
+        self.data.get(user).cloned().unwrap_or_default()
     }
 }
-

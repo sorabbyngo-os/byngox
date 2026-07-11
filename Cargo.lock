@@ -6,6 +6,7 @@ version = 4
 name = "agent_planner"
 version = "0.1.0"
 dependencies = [
+ "reasoning_engine",
  "serde",
  "serde_json",
 ]

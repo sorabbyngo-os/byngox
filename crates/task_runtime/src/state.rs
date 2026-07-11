@@ -1,7 +1,4 @@
-use crate::{
-    RunningTask,
-    TaskStatus,
-};
+use crate::{RunningTask, TaskStatus};
 
 pub struct ExecutionState {
     pub task: RunningTask,
@@ -24,10 +21,7 @@ impl ExecutionState {
         self.task.status
     }
 
-    pub fn set_status(
-        &mut self,
-        status: TaskStatus,
-    ) {
+    pub fn set_status(&mut self, status: TaskStatus) {
         self.task.status = status;
     }
 

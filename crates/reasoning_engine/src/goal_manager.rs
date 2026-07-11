@@ -11,15 +11,9 @@ impl GoalManager {
         Self
     }
 
-    pub fn extract(
-        &self,
-        prompt: &str,
-    ) -> Vec<Goal> {
-
-        vec![
-            Goal {
-                description: prompt.to_string(),
-            }
-        ]
+    pub fn extract(&self, prompt: &str) -> Vec<Goal> {
+        vec![Goal {
+            description: prompt.to_string(),
+        }]
     }
 }

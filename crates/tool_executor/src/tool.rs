@@ -5,8 +5,5 @@ pub trait Tool: Send + Sync {
 
     fn description(&self) -> &'static str;
 
-    fn execute(
-        &self,
-        input: &str,
-    ) -> Result<ToolResult, ToolError>;
+    fn execute(&self, input: &str) -> Result<ToolResult, ToolError>;
 }

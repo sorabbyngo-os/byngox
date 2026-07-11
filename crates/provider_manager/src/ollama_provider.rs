@@ -13,14 +13,13 @@ pub struct OllamaProvider {
 
 impl OllamaProvider {
     pub fn new() -> Self {
-       Self {
-         client: Client::builder()
-            .timeout(std::time::Duration::from_secs(300))
-            .build()
-            .expect("failed to create HTTP client"),
-       }
+        Self {
+            client: Client::builder()
+                .timeout(std::time::Duration::from_secs(300))
+                .build()
+                .expect("failed to create HTTP client"),
+        }
     }
-  
 }
 
 impl Provider for OllamaProvider {
@@ -95,12 +94,12 @@ impl Provider for OllamaProvider {
             stream: false,
         };
 
-	let response = self
-     	 .client
-     	 .post("http://localhost:11434/api/generate")
-    	 .json(&request)
-    	 .send()?
-	 .error_for_status()?;
+        let response = self
+            .client
+            .post("http://localhost:11434/api/generate")
+            .json(&request)
+            .send()?
+            .error_for_status()?;
 
         let body: OllamaResponse = response.json()?;
 
