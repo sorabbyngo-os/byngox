@@ -3,7 +3,7 @@ pub struct PlannerPrompt;
 impl PlannerPrompt {
     pub fn build(user_prompt: &str) -> String {
         format!(
-r#"You are the planning engine for ByngoX.
+            r#"You are the planning engine for ByngoX.
 
 Available tools:
 

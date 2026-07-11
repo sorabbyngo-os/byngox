@@ -1,11 +1,7 @@
-use agent_planner::{
-    PlannerParser,
-    PlannerValidator,
-};
+use agent_planner::{PlannerParser, PlannerValidator};
 
 #[test]
 fn parse_plan() {
-
     let json = r#"
     {
         "steps":[
@@ -21,11 +17,7 @@ fn parse_plan() {
     }
     "#;
 
-    let plan =
-        PlannerParser::parse(json)
-            .unwrap();
+    let plan = PlannerParser::parse(json).unwrap();
 
-    assert!(
-        PlannerValidator::validate(&plan)
-    );
+    assert!(PlannerValidator::validate(&plan));
 }
