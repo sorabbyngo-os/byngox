@@ -30,10 +30,18 @@ members = [
     "crates/hal",
     "crates/kernel",
     "crates/tool_executor",
-    "crates/byngox-cli", 
+    "crates/byngox-cli",
     "crates/prompt_builder",
-    "crates/agent_planner", 
-    "crates/task_runtime", 
-    "crates/reasoning_engine",
+    "crates/task_runtime",
     "crates/reasoning_engine",
 ]
+
+[workspace.dependencies]
+serde = "1.0"
+serde_json = "1.0"
+uuid = { version = "1.18", features = ["v4", "serde"] }
+thiserror = "2.0"
+anyhow = "1.0"
+tokio = { version = "1", features = ["full"] }
+async-trait = "0.1"
+tracing = "0.1"
