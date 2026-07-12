@@ -1,6 +1,6 @@
 use reasoning_engine::ReasoningResult;
 
-use crate::GoalTranslator;
+use crate::translator::GoalTranslator;
 use crate::{AgentAction, ExecutionPlan, PlanBuilder};
 
 pub struct AgentPlanner;

@@ -29,11 +29,13 @@ members = [
     "crates/storage",
     "crates/hal",
     "crates/kernel",
+    "crates/tool_capability",
     "crates/tool_executor",
     "crates/byngox-cli",
     "crates/prompt_builder",
     "crates/task_runtime",
-    "crates/reasoning_engine",
+    "crates/reasoning_engine", 
+    "crates/tool_capability", "crates/execution_engine",
 ]
 
 [workspace.dependencies]

@@ -1,5 +1,5 @@
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub enum Capability {
+pub enum ToolCapability {
     Filesystem,
     Web,
     Shell,

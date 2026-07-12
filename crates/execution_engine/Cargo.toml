@@ -1,0 +1,12 @@
+[package]
+name = "execution_engine"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+agent_planner = { path = "../agent_planner" }
+tool_capability = { path = "../tool_capability" }
+capability_registry = { path = "../capability_registry" }
+serde = { workspace = true, features = ["derive"] }
+serde_json.workspace = true
+thiserror = "2"

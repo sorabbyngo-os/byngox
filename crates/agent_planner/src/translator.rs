@@ -1,12 +1,20 @@
 use reasoning_engine::Goal;
 
-use crate::{AgentAction, CapabilityResolver, ExecutionPlan, PlanBuilder, ToolClassifier};
+use capability_registry::{CapabilityRegistry, ProviderRegistry, load_default_providers};
 
-pub struct GoalTranslator;
+use crate::{AgentAction, ExecutionPlan, PlanBuilder, ToolClassifier};
+
+pub struct GoalTranslator {
+    providers: ProviderRegistry,
+}
 
 impl GoalTranslator {
     pub fn new() -> Self {
-        Self
+        let mut providers = ProviderRegistry::new();
+
+        capability_registry::load_default_providers(&mut providers);
+
+        Self { providers }
     }
 
     pub fn translate(&self, goals: &[Goal]) -> ExecutionPlan {
@@ -15,9 +23,16 @@ impl GoalTranslator {
         for goal in goals {
             let capability = ToolClassifier::classify(&goal.description);
 
-            let target = CapabilityResolver::resolve(capability);
+            let provider = self
+                .providers
+                .resolve(capability)
+                .expect("provider not registered");
 
-            let tool = builder.add_step(AgentAction::UseTool, target, &goal.description);
+            let tool = builder.add_step(
+                AgentAction::UseTool,
+                provider.target.clone(),
+                &goal.description,
+            );
 
             builder.add_step_after(&tool, AgentAction::Respond, "", "");
         }

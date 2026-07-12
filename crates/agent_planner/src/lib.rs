@@ -1,7 +1,7 @@
 pub mod action;
 pub mod ai;
-pub mod capability;
-pub mod capability_resolver;
+pub mod tool_capability;
+//pub mod capability;
 pub mod plan;
 pub mod plan_builder;
 pub mod planner;
@@ -14,8 +14,8 @@ pub mod tool_classifier;
 pub mod translator;
 
 pub use action::*;
-pub use capability::*;
-pub use capability_resolver::*;
+pub use tool_capability::*;
+//pub use capability::*;
 pub use plan::*;
 pub use plan_builder::*;
 pub use planner::*;

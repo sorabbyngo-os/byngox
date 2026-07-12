@@ -6,9 +6,12 @@ version = 4
 name = "agent_planner"
 version = "0.1.0"
 dependencies = [
+ "ai_core",
+ "capability_registry",
  "reasoning_engine",
  "serde",
  "serde_json",
+ "tool_capability",
 ]
 
 [[package]]
@@ -69,6 +72,7 @@ name = "capability_registry"
 version = "0.1.0"
 dependencies = [
  "ai_core",
+ "tool_capability",
 ]
 
 [[package]]
@@ -175,6 +179,10 @@ dependencies = [
 
 [[package]]
 name = "events"
+version = "0.1.0"
+
+[[package]]
+name = "execution_engine"
 version = "0.1.0"
 
 [[package]]
@@ -1287,6 +1295,10 @@ dependencies = [
  "pin-project-lite",
  "tokio",
 ]
+
+[[package]]
+name = "tool_capability"
+version = "0.1.0"
 
 [[package]]
 name = "tool_executor"

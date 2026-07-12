@@ -1,8 +1,8 @@
-use ai_core::Capability;
+use tool_capability::ToolCapability;
 
 #[derive(Clone, Debug)]
 pub struct CapabilityDefinition {
-    pub capability: Capability,
+    pub capability: ToolCapability,
 
     pub id: String,
 
