@@ -5,8 +5,10 @@ edition = "2024"
 
 [dependencies]
 agent_planner = { path = "../agent_planner" }
-tool_capability = { path = "../tool_capability" }
 capability_registry = { path = "../capability_registry" }
+tool_capability = { path = "../tool_capability" }
+
 serde = { workspace = true, features = ["derive"] }
 serde_json.workspace = true
+
 thiserror = "2"

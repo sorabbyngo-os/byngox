@@ -5,6 +5,7 @@ members = [
     "crates/runtime",
     "crates/events",
     "crates/scheduler",
+    "crates/execution_engine",
     "crates/inference",
     "crates/model_registry",
     "crates/capability_registry",
