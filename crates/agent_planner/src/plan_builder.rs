@@ -20,6 +20,7 @@ impl PlanBuilder {
 
     pub fn add_step(
         &mut self,
+        runtime: impl Into<String>,
         action: AgentAction,
         target: impl Into<String>,
         input: impl Into<String>,
@@ -27,7 +28,7 @@ impl PlanBuilder {
         let id = self.next_id();
 
         self.plan
-            .add_step(PlanStep::new(id.clone(), action, target, input));
+            .add_step(PlanStep::new(id.clone(), runtime, action, target, input));
 
         id
     }
@@ -35,19 +36,27 @@ impl PlanBuilder {
     pub fn add_step_after(
         &mut self,
         dependency: &str,
+        runtime: impl Into<String>,
         action: AgentAction,
         target: impl Into<String>,
         input: impl Into<String>,
     ) -> String {
         let id = self.next_id();
 
-        self.plan
-            .add_step(PlanStep::new(id.clone(), action, target, input).depends_on(dependency));
+        self.plan.add_step(
+            PlanStep::new(id.clone(), runtime, action, target, input).depends_on(dependency),
+        );
 
         id
     }
 
     pub fn build(self) -> ExecutionPlan {
         self.plan
+    }
+}
+
+impl Default for PlanBuilder {
+    fn default() -> Self {
+        Self::new()
     }
 }

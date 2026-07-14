@@ -10,7 +10,7 @@ impl Runtime for WebRuntime {
     fn execute(&self, _: &ExecutionContext, request: &ExecutionRequest) -> ExecutionResult {
         ExecutionResult {
             success: true,
-            output: format!("web received '{}'", request.instruction),
+            output: format!("web received '{}'", request.input),
         }
     }
 }

@@ -1,28 +1,28 @@
 pub fn register_builtin(registry: &mut ProviderRegistry) {
     registry.register(CapabilityProvider {
         id: "filesystem".into(),
-        capability: ToolCapability::Filesystem,
+        capability: capability::Filesystem,
         target: "filesystem".into(),
         priority: 100,
     });
 
     registry.register(CapabilityProvider {
         id: "web".into(),
-        capability: ToolCapability::Web,
+        capability: capability::Web,
         target: "web".into(),
         priority: 100,
     });
 
     registry.register(CapabilityProvider {
         id: "shell".into(),
-        capability: ToolCapability::Shell,
+        capability: capability::Shell,
         target: "shell".into(),
         priority: 100,
     });
 
     registry.register(CapabilityProvider {
         id: "reasoning".into(),
-        capability: ToolCapability::Reasoning,
+        capability: capability::Reasoning,
         target: "reasoning".into(),
         priority: 100,
     });

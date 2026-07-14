@@ -1,8 +1,10 @@
 use std::collections::HashMap;
 
 use crate::{
-    ExecutionRequest, ExecutionResult, FilesystemExecutor, MemoryExecutor, ReasoningExecutor,
-    ShellExecutor, ToolExecutor, WebExecutor,
+    ExecutionRequest, ExecutionResult, ToolExecutor,
+    executors::{
+        FilesystemExecutor, MemoryExecutor, ReasoningExecutor, ShellExecutor, WebExecutor,
+    },
 };
 
 pub struct Dispatcher {
@@ -16,13 +18,9 @@ impl Dispatcher {
         };
 
         dispatcher.register("filesystem", Box::new(FilesystemExecutor));
-
         dispatcher.register("shell", Box::new(ShellExecutor));
-
         dispatcher.register("web", Box::new(WebExecutor));
-
         dispatcher.register("memory", Box::new(MemoryExecutor));
-
         dispatcher.register("reasoning", Box::new(ReasoningExecutor));
 
         dispatcher
@@ -33,9 +31,11 @@ impl Dispatcher {
     }
 
     pub fn dispatch(&self, request: &ExecutionRequest) -> ExecutionResult {
-        self.executors
-            .get(&request.target)
-            .expect("executor not registered")
-            .execute(request)
+        match self.executors.get(&request.target) {
+            Some(executor) => executor.execute(request),
+            None => {
+                ExecutionResult::failure(format!("No executor registered for '{}'", request.target))
+            }
+        }
     }
 }

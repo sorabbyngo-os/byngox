@@ -1,0 +1,78 @@
+warning: unused import: `context::*`
+  --> crates/ai_core/src/lib.rs:18:9
+   |
+18 | pub use context::*;
+   |         ^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `memory::*`
+  --> crates/ai_core/src/lib.rs:21:9
+   |
+21 | pub use memory::*;
+   |         ^^^^^^^^^
+
+warning: unused import: `resources::*`
+  --> crates/ai_core/src/lib.rs:24:9
+   |
+24 | pub use resources::*;
+   |         ^^^^^^^^^^^^
+
+warning: `ai_core` (lib) generated 3 warnings (run `cargo fix --lib -p ai_core` to apply 3 suggestions)
+warning: unused import: `fallback::*`
+ --> crates/agent_planner/src/ai/mod.rs:7:9
+  |
+7 | pub use fallback::*;
+  |         ^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `agent_planner` (lib) generated 1 warning (run `cargo fix --lib -p agent_planner` to apply 1 suggestion)
+warning: unused import: `std::time::Duration`
+ --> crates/provider_manager/src/ollama_provider.rs:2:5
+  |
+2 | use std::time::Duration;
+  |     ^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `provider_manager` (lib) generated 1 warning (run `cargo fix --lib -p provider_manager` to apply 1 suggestion)
+warning: field `capability_registry` is never read
+  --> crates/inference/src/engine.rs:26:5
+   |
+25 | pub struct InferenceEngine {
+   |            --------------- field in this struct
+26 |     capability_registry: CapabilityRegistry,
+   |     ^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `inference` (lib) generated 1 warning
+    Checking coordinator v0.1.0 (/home/sorabbyngo/sorabbyngo/byngox/crates/coordinator)
+warning: unused import: `task::*`
+  --> crates/coordinator/src/lib.rs:22:9
+   |
+22 | pub use task::*;
+   |         ^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+error[E0308]: mismatched types
+  --> crates/coordinator/src/planner.rs:40:57
+   |
+40 | ...model_registry.models_for(&definition.capability);
+   |                   ---------- ^^^^^^^^^^^^^^^^^^^^^^ expected `&Capability`, found `&ToolCapability`
+   |                   |
+   |                   arguments to this method are incorrect
+   |
+   = note: expected reference `&Capability`
+              found reference `&tool_capability::ToolCapability`
+note: method defined here
+  --> crates/model_registry/src/registry.rs:27:12
+   |
+27 |     pub fn models_for(&self, capability: &Capability) -> Vec<Model> {
+   |            ^^^^^^^^^^
+
+For more information about this error, try `rustc --explain E0308`.
+warning: `coordinator` (lib) generated 1 warning
+error: could not compile `coordinator` (lib) due to 1 previous error; 1 warning emitted

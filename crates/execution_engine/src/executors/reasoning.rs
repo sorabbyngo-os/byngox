@@ -4,9 +4,6 @@ pub struct ReasoningExecutor;
 
 impl ToolExecutor for ReasoningExecutor {
     fn execute(&self, request: &ExecutionRequest) -> ExecutionResult {
-        ExecutionResult::success(format!(
-            "Reasoning executor received: {}",
-            request.instruction
-        ))
+        ExecutionResult::success(format!("Reasoning executor received: {}", request.input))
     }
 }

@@ -10,7 +10,7 @@ impl Runtime for ReasoningRuntime {
     fn execute(&self, _: &ExecutionContext, request: &ExecutionRequest) -> ExecutionResult {
         ExecutionResult {
             success: true,
-            output: format!("reasoning received '{}'", request.instruction),
+            output: format!("reasoning received '{}'", request.input),
         }
     }
 }

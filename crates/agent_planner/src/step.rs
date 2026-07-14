@@ -16,6 +16,9 @@ pub struct PlanStep {
     /// Target tool/service.
     pub target: String,
 
+    ///a runtime field
+    pub runtime: String,
+
     /// Input passed to the target.
     pub input: String,
 }
@@ -23,6 +26,7 @@ pub struct PlanStep {
 impl PlanStep {
     pub fn new(
         id: impl Into<String>,
+        runtime: impl Into<String>,
         action: AgentAction,
         target: impl Into<String>,
         input: impl Into<String>,
@@ -32,6 +36,7 @@ impl PlanStep {
             dependencies: Vec::new(),
             action,
             target: target.into(),
+            runtime: runtime.into(),
             input: input.into(),
         }
     }

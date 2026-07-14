@@ -10,7 +10,7 @@ impl Runtime for MemoryRuntime {
     fn execute(&self, _: &ExecutionContext, request: &ExecutionRequest) -> ExecutionResult {
         ExecutionResult {
             success: true,
-            output: format!("memory received '{}'", request.instruction),
+            output: format!("memory received '{}'", request.input),
         }
     }
 }

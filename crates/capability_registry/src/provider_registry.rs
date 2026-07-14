@@ -1,11 +1,11 @@
 use std::collections::HashMap;
 
-use tool_capability::ToolCapability;
+use ai_core::Capability;
 
 use crate::CapabilityProvider;
 
 pub struct ProviderRegistry {
-    providers: HashMap<ToolCapability, CapabilityProvider>,
+    providers: HashMap<Capability, CapabilityProvider>,
 }
 
 impl ProviderRegistry {
@@ -16,18 +16,20 @@ impl ProviderRegistry {
     }
 
     pub fn register(&mut self, provider: CapabilityProvider) {
-        self.providers.insert(provider.capability, provider);
+        self.providers.insert(provider.capability.clone(), provider);
     }
 
-    pub fn resolve(&self, capability: ToolCapability) -> Option<&CapabilityProvider> {
+    pub fn resolve(&self, capability: Capability) -> Option<&CapabilityProvider> {
         self.providers.get(&capability)
     }
 
-    pub fn contains(&self, capability: ToolCapability) -> bool {
+    pub fn contains(&self, capability: Capability) -> bool {
         self.providers.contains_key(&capability)
     }
+}
 
-    pub fn all(&self) -> impl Iterator<Item = &CapabilityProvider> {
-        self.providers.values()
+impl Default for ProviderRegistry {
+    fn default() -> Self {
+        Self::new()
     }
 }

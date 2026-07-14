@@ -10,7 +10,7 @@ impl Runtime for FilesystemRuntime {
     fn execute(&self, _: &ExecutionContext, request: &ExecutionRequest) -> ExecutionResult {
         ExecutionResult {
             success: true,
-            output: format!("filesystem received '{}'", request.instruction),
+            output: format!("filesystem received '{}'", request.input),
         }
     }
 }

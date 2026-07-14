@@ -10,7 +10,7 @@ impl Runtime for ShellRuntime {
     fn execute(&self, _: &ExecutionContext, request: &ExecutionRequest) -> ExecutionResult {
         ExecutionResult {
             success: true,
-            output: format!("shell received '{}'", request.instruction),
+            output: format!("shell received '{}'", request.input),
         }
     }
 }
