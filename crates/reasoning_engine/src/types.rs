@@ -17,7 +17,11 @@ pub enum ReasoningStrategy {
 
 #[derive(Debug, Clone)]
 pub struct Goal {
+    pub id: String,
+
     pub description: String,
+
+    pub capabilities: Vec<ai_core::Capability>,
 }
 
 #[derive(Debug, Clone)]

@@ -8,7 +8,9 @@ pub mod result;
 pub mod runtime;
 pub mod runtimes;
 pub mod tool_executor;
+pub mod capability_analyzer;
 
+pub use capability_analyzer::*;
 pub use context::*;
 pub use dispatcher::*;
 pub use errors::*;

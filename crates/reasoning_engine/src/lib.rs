@@ -9,7 +9,9 @@ pub mod reflection;
 pub mod strategy;
 pub mod types;
 pub mod verifier;
+pub mod capability_analyzer;
 
+pub use capability_analyzer::*;
 pub use analyzer::*;
 pub use decomposition::*;
 pub use goal_graph::*;

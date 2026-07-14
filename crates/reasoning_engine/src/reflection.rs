@@ -19,8 +19,7 @@ impl ReflectionEngine {
         if plan.goals.is_empty() {
             feedback.push("No goals were produced.".to_string());
         }
-
-        for Goal { description } in &plan.goals {
+	for Goal { description, .. } in &plan.goals {
             if description.trim().is_empty() {
                 feedback.push("Empty goal detected.".to_string());
             }

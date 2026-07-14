@@ -10,10 +10,11 @@ impl GoalManager {
     pub fn new() -> Self {
         Self
     }
-
     pub fn extract(&self, prompt: &str) -> Vec<Goal> {
-        vec![Goal {
-            description: prompt.to_string(),
-        }]
-    }
+    vec![Goal {
+        id: "goal-1".to_string(),
+        description: prompt.to_string(),
+        capabilities: Vec::new(),
+    }]
+  }
 }

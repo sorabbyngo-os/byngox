@@ -8,9 +8,11 @@ fn translates_reasoning_into_execution_plan() {
     let reasoning = ReasoningResult {
         intent: Intent::ToolUse,
         strategy: ReasoningStrategy::Planning,
-        goals: vec![Goal {
-            description: "read config".into(),
-        }],
+	goals: vec![Goal {
+        id: "goal-1".to_string(),
+        description: "read config".to_string(),
+        capabilities: Vec::new(),
+	}],
     };
 
     let plan = planner.create_plan_from_reasoning(&reasoning);
