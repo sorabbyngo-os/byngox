@@ -1,3 +1,6 @@
+pub mod agent_session;
+pub mod agent_coordinator;
+pub mod agent_pipeline;
 pub mod coordinator;
 pub mod error;
 pub mod execution_plan;
@@ -11,12 +14,11 @@ pub mod task;
 
 pub use coordinator::InferenceCoordinator;
 pub use planner::Planner;
-//pub use executor::Executor;
-//pub use pipeline::Pipeline;
-//pub use state::CoordinatorState;
 pub use ai_core::ModelSelection;
+pub use agent_session::AgentSession;
 pub use error::CoordinatorError;
 pub use execution_plan::ExecutionPlan;
 pub use request::InferenceTask;
 pub use response::InferenceResult;
 pub use task::*;
+pub use agent_coordinator::AgentCoordinator;

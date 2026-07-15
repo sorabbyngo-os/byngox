@@ -99,15 +99,18 @@ version = "0.1.0"
 name = "coordinator"
 version = "0.1.0"
 dependencies = [
+ "agent_planner",
  "ai_core",
  "benchmark_engine",
  "capability_registry",
  "context",
+ "execution_engine",
  "inference",
  "memory",
  "model_registry",
  "model_router",
  "provider_manager",
+ "reasoning_engine",
  "resource_manager",
 ]
 

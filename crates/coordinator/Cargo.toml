@@ -19,3 +19,7 @@ memory = { path = "../memory" }
 context = { path = "../context" }
 
 inference = { path = "../inference" }
+
+reasoning_engine = { path = "../reasoning_engine" }
+agent_planner = { path = "../agent_planner" }
+execution_engine = { path = "../execution_engine" }
